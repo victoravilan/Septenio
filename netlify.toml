@@ -11,6 +11,7 @@
   for = "/sw.js"
   [headers.values]
     Cache-Control = "no-cache, no-store, must-revalidate"
+    Service-Worker-Allowed = "/"
 
 [[headers]]
   for = "/manifest.webmanifest"
@@ -18,17 +19,18 @@
     Cache-Control = "public, max-age=3600"
     Content-Type = "application/manifest+json"
 
+[[headers]]
+  for = "/browserconfig.xml"
+  [headers.values]
+    Content-Type = "application/xml"
+
 # HTML siempre fresco; assets con versionado por nombre de archivo pueden cachear más.
 [[headers]]
   for = "/index.html"
   [headers.values]
     Cache-Control = "no-cache"
 
-[[headers]]
-  for = "/icons/*"
-  [headers.values]
-    Cache-Control = "public, max-age=604800"
-
+# Permitir previsualización embebida (visor) y asociación del manifiesto.
 [[headers]]
   for = "/*"
   [headers.values]
