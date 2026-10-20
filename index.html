@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="oscuro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="Septenios · Tu mapa de desarrollo en ciclos de 7 años y 7 ciclos anuales de 52 días.">
+<title>Septenios · Ciclos de 7 años y de 52 días</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Septenios">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="color-scheme" content="dark light">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="stars" aria-hidden="true"></div>
+<div id="warn" class="warn hidden"></div>
+
+<div class="app-wrap">
+  <header class="topbar">
+    <div class="brand-mini">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f5c56b"/><stop offset="100%" stop-color="#8b6cff"/>
+        </linearGradient></defs>
+        <circle cx="50" cy="50" r="38" fill="none" stroke="url(#gb)" stroke-width="2" opacity=".5"/>
+        <g id="brandDots"></g>
+        <circle cx="50" cy="50" r="5" fill="currentColor"/>
+      </svg>
+      <div>
+        <p class="brand-name">Septenios</p>
+        <p class="brand-tag" id="tagLine">Ciclos de 7 años · 7 ciclos de 52 días</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn pulse hidden" id="btnInstalar" aria-label="Instalar la aplicación" title="Instalar la app">⇩</button>
+      <button class="icon-btn" id="btnTema" aria-label="Cambiar tema">◐</button>
+      <button class="icon-btn" id="btnFechaTop" aria-label="Cambiar fecha de nacimiento">✎</button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="view active" id="view-informe"></section>
+    <section class="view" id="view-septenios"></section>
+    <section class="view" id="view-ciclos"></section>
+    <section class="view" id="view-mente"></section>
+    <section class="view" id="view-diario"></section>
+    <section class="view" id="view-glosario"></section>
+    <section class="view" id="view-perfil"></section>
+    <noscript><div class="card"><h2>Esta app necesita JavaScript</h2><p class="muted">Actívalo o abrí el archivo en un navegador para ver tu informe.</p></div></noscript>
+
+    <footer class="foot">
+      <p class="foot-l1">Creado y diseñado por: <b>Victor. M.F. Avilan.</b></p>
+      <p class="foot-l2">Valor Agregado - Todos los derechos reservados</p>
+    </footer>
+  </main>
+
+  <nav class="bottom-nav" role="navigation">
+    <button class="nav-item active" data-view="informe">
+      <svg viewBox="0 0 24 24"><path d="M12 3.6l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.9l6.1-.7z"/></svg><span>Informe</span>
+    </button>
+    <button class="nav-item" data-view="septenios">
+      <svg viewBox="0 0 24 24"><path d="M4 19h16M6 16V10M11 16V6M16 16v-5M21 16v-8"/></svg><span>Septenios</span>
+    </button>
+    <button class="nav-item" data-view="ciclos">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4"/></svg><span>Ciclos</span>
+    </button>
+    <button class="nav-item" data-view="mente">
+      <svg viewBox="0 0 24 24"><path d="M12 4.2c-3.6 0-6.5 2.4-6.5 5.4 0 1.6.8 3 2.1 4v2.2c0 .7.6 1.3 1.3 1.3h6.2c.7 0 1.3-.6 1.3-1.3v-2.2c1.3-1 2.1-2.4 2.1-4 0-3-2.9-5.4-6.5-5.4z"/><path d="M9.5 4.2V2.6h5v1.6M12 17v2.6M8.6 19.6h6.8"/></svg><span>Mente 60+</span>
+    </button>
+    <button class="nav-item" data-view="diario">
+      <svg viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6.5A1.5 1.5 0 0 1 5 19.5zM9 8h6M9 12h6M9 16h4"/></svg><span>Diario</span>
+    </button>
+    <button class="nav-item" data-view="glosario">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .9-1 1.6v.4"/><path d="M12 17.2v.1"/></svg><span>Glosario</span>
+    </button>
+    <button class="nav-item" data-view="perfil">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.7"/><path d="M4.5 20c1.2-3.6 4-5.4 7.5-5.4s6.3 1.8 7.5 5.4"/></svg><span>Perfil</span>
+    </button>
+  </nav>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* ---- Instalación como app (PWA) + Service Worker ----
+   Todo está protegido: si el navegador o el visor no lo permiten, la app sigue funcionando igual. */
+(function () {
+  try {
+    var deferred = null, btn = document.getElementById('btnInstalar');
+
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault(); deferred = e;
+      if (btn) btn.classList.remove('hidden');
+    });
+    window.addEventListener('appinstalled', function () {
+      deferred = null; if (btn) btn.classList.add('hidden');
+    });
+    if (btn) btn.addEventListener('click', function () {
+      if (!deferred) return;
+      deferred.prompt();
+      deferred.userChoice.then(function (r) {
+        if (r && r.outcome === 'accepted') btn.classList.add('hidden');
+        deferred = null;
+      }).catch(function () { });
+    });
+
+    // El registro va en su propia función con try/catch: en visores embebidos
+    // (iframe con sandbox sin allow-same-origin) leer navigator.serviceWorker
+    // lanza SecurityError, y eso no puede romper la app.
+    function registrarSW() {
+      try {
+        if (!('serviceWorker' in navigator)) return;
+        if (window.isSecureContext === false) return; // http sin TLS o iframe aislado: nada que hacer
+        var seguro = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        if (!seguro) return;
+        navigator.serviceWorker.register('sw.js').catch(function (e) {
+          console.warn('Service Worker no registrado:', e && e.message);
+        });
+      } catch (e) { console.warn('Service Worker no disponible:', e && e.message); }
+    }
+    window.addEventListener('load', registrarSW);
+  } catch (e) { console.warn('PWA no disponible en este visor:', e && e.message); }
+})();
+</script>
+<script src="app.js"></script>
+</body>
+</html>

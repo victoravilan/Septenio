@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="oscuro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="Septenios · Tu mapa de desarrollo en ciclos de 7 años y 7 ciclos anuales de 52 días.">
+<title>Septenios · Ciclos de 7 años y de 52 días</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Septenios">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="color-scheme" content="dark light">
+
+<style>
+/* ================= SEPTENIOS · diseño móvil v2 ================= */
+:root{
+  --bg:#080c1a; --bg2:#111731;
+  --card:rgba(255,255,255,.055); --card2:rgba(255,255,255,.028);
+  --line:rgba(255,255,255,.10);
+  --txt:#eef1ff; --muted:#a5abd0;
+  --gold:#f5c56b; --violet:#8b6cff; --mint:#5fe3bf; --rose:#ff86a8;
+  --sky:#69b8ff; --green:#9fd67a; --danger:#ff7a7a;
+  --r:20px; --shadow:0 14px 40px rgba(0,0,0,.45);
+  --nav-h:66px;
+}
+html[data-theme="claro"]{
+  --bg:#f6f5fb; --bg2:#ffffff;
+  --card:rgba(255,255,255,.86); --card2:rgba(255,255,255,.62);
+  --line:rgba(30,26,70,.10);
+  --txt:#1a1730; --muted:#605c85;
+  --gold:#c98a09; --violet:#6a48e8; --mint:#0f9c7c; --rose:#d64a78;
+  --sky:#2b7fd4; --green:#4f9c2e; --danger:#cf3f3f;
+  --shadow:0 12px 30px rgba(31,25,80,.10);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  margin:0;color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+.aurora{position:fixed;inset:-20% -10%;z-index:0;filter:blur(60px);opacity:.55;pointer-events:none}
+.aurora i{position:absolute;display:block;border-radius:50%;mix-blend-mode:screen;animation:flotar 22s ease-in-out infinite}
+.aurora i:nth-child(1){width:60vw;height:60vw;left:-12%;top:-8%;background:radial-gradient(circle,#3b2f8f,transparent 68%)}
+.aurora i:nth-child(2){width:52vw;height:52vw;right:-14%;top:6%;background:radial-gradient(circle,#8b5a2b,transparent 68%);animation-delay:-7s}
+.aurora i:nth-child(3){width:66vw;height:66vw;left:8%;bottom:-24%;background:radial-gradient(circle,#1f6f6f,transparent 70%);animation-delay:-14s}
+html[data-theme="claro"] .aurora{opacity:.28;filter:blur(70px)}
+@keyframes flotar{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(4%,-4%) scale(1.08)}}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;
+  background-image:radial-gradient(1.3px 1.3px at 20% 30%,#fff 50%,transparent),radial-gradient(1.1px 1.1px at 70% 12%,#ffe6b0 50%,transparent),
+  radial-gradient(1px 1px at 42% 78%,#fff 50%,transparent),radial-gradient(1.2px 1.2px at 88% 62%,#cfd8ff 50%,transparent),
+  radial-gradient(1px 1px at 8% 88%,#fff 50%,transparent);
+  background-size:340px 340px,420px 420px,300px 300px,520px 520px,260px 260px}
+html[data-theme="claro"] .stars{display:none}
+.hidden{display:none !important}
+h1,h2,h3,h4{line-height:1.25;margin:0}
+p{line-height:1.62;margin:0}
+button{font:inherit;color:inherit}
+svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- estructura ---------- */
+.app-wrap{position:relative;z-index:2;min-height:100dvh}
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:calc(12px + env(safe-area-inset-top)) 16px 10px;backdrop-filter:blur(16px);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 92%,transparent),color-mix(in srgb,var(--bg) 60%,transparent));
+  border-bottom:1px solid var(--line)}
+.brand-mini{display:flex;align-items:center;gap:10px;min-width:0}
+.brand-mini svg{width:34px;height:34px;color:var(--gold);flex:0 0 auto}
+.brand-name{font-weight:800;font-size:1rem;letter-spacing:.3px}
+.brand-tag{font-size:.68rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52vw}
+.top-actions{display:flex;gap:6px}
+.icon-btn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--card);
+  display:grid;place-items:center;font-size:1rem;cursor:pointer;transition:.2s;flex:0 0 auto}
+.icon-btn:active{transform:scale(.94)}
+.app-main{max-width:600px;margin:0 auto;padding:14px 14px calc(var(--nav-h) + 34px + env(safe-area-inset-bottom))}
+.view{display:none}
+.view.active{display:block;animation:sube .45s cubic-bezier(.2,.7,.3,1) both}
+@keyframes sube{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(7,1fr);
+  padding:7px 4px calc(7px + env(safe-area-inset-bottom));backdrop-filter:blur(18px);
+  background:color-mix(in srgb,var(--bg) 88%,transparent);border-top:1px solid var(--line)}
+.nav-item{background:transparent;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 1px;
+  color:var(--muted);font-size:.6rem;cursor:pointer;transition:.2s;letter-spacing:.2px}
+.nav-item svg{width:20px;height:20px}
+.nav-item.active{color:var(--gold)}
+.nav-item.active svg{transform:translateY(-1px) scale(1.06)}
+
+/* ---------- tarjetas ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:13px;
+  backdrop-filter:blur(14px);box-shadow:var(--shadow)}
+.card.hero{background:linear-gradient(155deg,color-mix(in srgb,var(--gold) 20%,transparent),color-mix(in srgb,var(--violet) 18%,transparent));
+  border-color:color-mix(in srgb,var(--gold) 40%,transparent);position:relative;overflow:hidden}
+.card.hero::after{content:"";position:absolute;width:220px;height:220px;right:-70px;top:-90px;border-radius:50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--gold) 45%,transparent),transparent 70%)}
+.card.plano{background:var(--card2);box-shadow:none}
+.kicker{font-size:.66rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:800}
+h2.sec{font-size:1.08rem;margin-bottom:7px}
+h3.mini{font-size:.92rem;margin-bottom:6px}
+.muted{color:var(--muted);font-size:.85rem}
+.age-big{font-size:2.6rem;font-weight:800;letter-spacing:-1.4px;line-height:1.02;
+  background:linear-gradient(92deg,var(--txt),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:6px 11px;font-size:.74rem}
+.chip.gold{background:color-mix(in srgb,var(--gold) 18%,transparent);border-color:color-mix(in srgb,var(--gold) 45%,transparent);color:var(--gold)}
+.chip.violet{background:color-mix(in srgb,var(--violet) 18%,transparent);border-color:color-mix(in srgb,var(--violet) 45%,transparent);color:var(--violet)}
+.chip.mint{background:color-mix(in srgb,var(--mint) 18%,transparent);border-color:color-mix(in srgb,var(--mint) 45%,transparent);color:var(--mint)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.stat{background:color-mix(in srgb,var(--bg2) 60%,transparent);border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center}
+.stat b{display:block;font-size:1.02rem}
+.stat span{font-size:.63rem;color:var(--muted);letter-spacing:.3px}
+.bar{height:9px;border-radius:9px;background:color-mix(in srgb,var(--txt) 12%,transparent);overflow:hidden;margin:9px 0 6px}
+.bar>i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--gold),var(--violet));transition:width 1.1s cubic-bezier(.2,.8,.3,1)}
+.bar-labels{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);gap:8px}
+ul.clean{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+ul.clean li{position:relative;padding-left:17px;font-size:.86rem;line-height:1.55}
+ul.clean li::before{content:"";position:absolute;left:3px;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+ul.clean.mint li::before{background:var(--mint)}
+ul.clean.violet li::before{background:var(--violet)}
+ul.clean.rose li::before{background:var(--rose)}
+.pillar{display:flex;gap:10px;padding:11px;border-radius:15px;background:var(--card2);border:1px solid var(--line);margin-bottom:8px}
+.pillar .ico{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-size:1rem;flex:0 0 auto;background:var(--card)}
+.pillar h4{font-size:.85rem;margin-bottom:2px}
+.pillar p{font-size:.84rem;color:var(--muted)}
+.quote{border-left:3px solid var(--gold);padding:7px 12px;margin:10px 0 0;color:color-mix(in srgb,var(--gold) 70%,var(--txt));font-style:italic;font-size:.9rem}
+.disclaimer{background:var(--card2);border:1px dashed var(--line);border-radius:15px;padding:12px;font-size:.78rem;color:var(--muted)}
+.notice{background:color-mix(in srgb,var(--sky) 14%,transparent);border:1px solid color-mix(in srgb,var(--sky) 35%,transparent);
+  padding:11px 13px;border-radius:13px;font-size:.84rem}
+.warn{position:relative;z-index:50;background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 26%,transparent),color-mix(in srgb,var(--rose) 20%,transparent));
+  border-bottom:1px solid color-mix(in srgb,var(--gold) 42%,transparent);font-size:.76rem;line-height:1.55;padding:10px 16px;text-align:center}
+
+/* ---------- formularios ---------- */
+.field{display:flex;flex-direction:column;gap:6px}
+.field>span{font-size:.72rem;letter-spacing:.5px;color:var(--muted);text-transform:uppercase}
+input,select,textarea{width:100%;background:color-mix(in srgb,var(--bg2) 55%,transparent);border:1px solid var(--line);
+  border-radius:13px;padding:12px 13px;color:var(--txt);font-size:.94rem;outline:none;transition:.2s;appearance:none;font-family:inherit}
+input:focus,select:focus,textarea:focus{border-color:color-mix(in srgb,var(--gold) 65%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 14%,transparent)}
+input[type=date]{color-scheme:dark}
+html[data-theme="claro"] input[type=date]{color-scheme:light}
+.pwd-wrap{position:relative}
+.pwd-wrap input{padding-right:44px}
+.eye{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:transparent;border:0;color:var(--muted);cursor:pointer;padding:6px 8px;font-size:1rem}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:12px 16px;font-size:.93rem;font-weight:600;cursor:pointer;transition:.2s;width:100%}
+.btn.primary{background:linear-gradient(135deg,var(--gold),color-mix(in srgb,var(--violet) 85%,var(--gold)));color:#160f28;border:0;
+  box-shadow:0 10px 26px color-mix(in srgb,var(--violet) 32%,transparent)}
+html[data-theme="claro"] .btn.primary{color:#fff}
+.btn.primary:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;color:var(--muted);font-weight:500;font-size:.84rem;padding:9px}
+.btn.tiny{width:auto;padding:8px 13px;font-size:.78rem;color:var(--gold);border-color:color-mix(in srgb,var(--gold) 40%,transparent);
+  background:color-mix(in srgb,var(--gold) 10%,transparent)}
+.btn.danger{background:color-mix(in srgb,var(--danger) 14%,transparent);border-color:color-mix(in srgb,var(--danger) 40%,transparent);color:var(--danger)}
+.msg{min-height:16px;font-size:.79rem;color:var(--danger);text-align:center}
+.msg.ok{color:var(--mint)}
+.hint{color:var(--muted);font-size:.72rem}
+
+/* ---------- riel de fases y septenios ---------- */
+.fases{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}
+.fase{border:1px solid var(--line);border-radius:13px;padding:9px 8px;text-align:center;background:var(--card2);position:relative;overflow:hidden}
+.fase b{display:block;font-size:.82rem}
+.fase span{font-size:.63rem;color:var(--muted)}
+.fase.on{background:linear-gradient(150deg,color-mix(in srgb,var(--gold) 26%,transparent),color-mix(in srgb,var(--violet) 22%,transparent));
+  border-color:color-mix(in srgb,var(--gold) 50%,transparent);box-shadow:0 0 0 1px color-mix(in srgb,var(--gold) 20%,transparent)}
+.rail{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px;margin:0 -2px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail-item{flex:0 0 auto;min-width:96px;border:1px solid var(--line);border-radius:15px;padding:9px 10px;background:var(--card2);cursor:pointer;text-align:left}
+.rail-item b{display:block;font-size:.76rem;white-space:nowrap}
+.rail-item span{font-size:.62rem;color:var(--muted)}
+.rail-item.on{background:linear-gradient(150deg,color-mix(in srgb,var(--gold) 28%,transparent),color-mix(in srgb,var(--violet) 22%,transparent));
+  border-color:color-mix(in srgb,var(--gold) 55%,transparent)}
+.rail-item .dot{width:22px;height:22px;border-radius:8px;display:grid;place-items:center;font-size:.68rem;font-weight:800;margin-bottom:4px;background:var(--card)}
+
+/* ---------- acordeones ---------- */
+.acc{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:11px;background:var(--card2)}
+.acc.now{border-color:color-mix(in srgb,var(--gold) 55%,transparent);box-shadow:0 0 0 1px color-mix(in srgb,var(--gold) 18%,transparent),0 12px 28px rgba(0,0,0,.28)}
+.acc-head{display:flex;align-items:center;gap:11px;width:100%;background:transparent;border:0;padding:14px;text-align:left;cursor:pointer}
+.acc-num{width:33px;height:33px;border-radius:11px;display:grid;place-items:center;font-size:.82rem;font-weight:800;flex:0 0 auto;background:var(--card);color:var(--gold)}
+.acc.now .acc-num{background:linear-gradient(135deg,var(--gold),var(--violet));color:#160f28}
+.acc-title{flex:1;min-width:0}
+.acc-title b{display:block;font-size:.93rem}
+.acc-title span{font-size:.73rem;color:var(--muted);display:block}
+.acc-chev{transition:.3s;color:var(--muted);flex:0 0 auto}
+.acc.open .acc-chev{transform:rotate(180deg)}
+.acc-body{display:none;padding:0 14px 15px;border-top:1px solid var(--line)}
+.acc.open .acc-body{display:block;animation:sube .3s ease both}
+.acc-body>*{margin-top:12px}
+.tag-now{background:color-mix(in srgb,var(--gold) 20%,transparent);color:var(--gold);border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);
+  border-radius:999px;padding:2px 8px;font-size:.62rem;white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.mini-box{border:1px solid var(--line);border-radius:13px;padding:9px 10px;background:var(--card2)}
+.mini-box span{display:block;font-size:.62rem;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.mini-box b{font-size:.84rem;font-weight:600}
+
+/* ---------- anillo ---------- */
+.ring-box{display:flex;align-items:center;gap:13px}
+.ring{width:152px;height:152px;flex:0 0 auto}
+.ring svg{width:100%;height:100%;overflow:visible}
+.ring .seg{transition:opacity .4s}
+.ring .gl{fill:var(--txt);text-anchor:middle;dominant-baseline:central;font-size:15px;stroke:none}
+.ring .ctr{font-size:12.5px;font-weight:800;fill:var(--txt);text-anchor:middle}
+.ring .ctr2{font-size:8.6px;fill:var(--muted);text-anchor:middle;letter-spacing:.5px}
+.ring-side{flex:1;min-width:0}
+
+/* ---------- diario / plan ---------- */
+.note{border:1px solid var(--line);border-radius:15px;padding:12px;background:var(--card2);margin-bottom:10px}
+.note .nd{font-size:.66rem;color:var(--gold);letter-spacing:.5px;text-transform:uppercase;display:flex;justify-content:space-between;gap:8px}
+.note p{font-size:.87rem;margin-top:6px;white-space:pre-wrap}
+.note .del{margin-top:8px;font-size:.72rem;color:var(--danger);background:transparent;border:0;padding:0;cursor:pointer}
+.area-bar{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.area-bar .nm{width:84px;font-size:.74rem;color:var(--muted);flex:0 0 auto}
+.area-bar .tk{flex:1;height:8px;border-radius:8px;background:color-mix(in srgb,var(--txt) 10%,transparent);overflow:hidden}
+.area-bar .tk i{display:block;height:100%;background:linear-gradient(90deg,var(--mint),var(--sky))}
+.area-bar .ct{width:22px;text-align:right;font-size:.74rem;color:var(--muted)}
+.task{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:0}
+.task input[type=checkbox]{width:19px;height:19px;flex:0 0 auto;margin-top:2px;accent-color:var(--gold)}
+.task.done span{text-decoration:line-through;color:var(--muted)}
+.task span{flex:1;font-size:.86rem}
+.task button{background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:.9rem}
+textarea{min-height:90px;resize:vertical}
+
+/* ---------- perfil ---------- */
+.line-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.86rem}
+.line-item:last-child{border-bottom:0}
+.line-item span:first-child{color:var(--muted)}
+.line-item b{text-align:right;word-break:break-word}
+
+/* ---------- instalar PWA ---------- */
+.icon-btn.pulse{animation:pulse 2.4s ease-in-out infinite;color:var(--gold);
+  border-color:color-mix(in srgb,var(--gold) 50%,transparent)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 45%,transparent)}
+  50%{box-shadow:0 0 0 7px transparent}}
+@media (prefers-reduced-motion:reduce){ .icon-btn.pulse{animation:none} }
+
+/* ---------- pie de página ---------- */
+.foot{margin:4px 0 0;padding:15px 16px;text-align:center;
+  border-top:1px solid var(--line);background:color-mix(in srgb,var(--card) 55%,transparent);
+  border-radius:var(--r) var(--r) 0 0}
+.foot p{line-height:1.5}
+.foot-l1{font-size:.78rem;color:var(--muted)}
+.foot-l1 b{color:color-mix(in srgb,var(--gold) 82%,var(--txt));font-weight:700}
+.foot-l2{font-size:.7rem;letter-spacing:.6px;color:var(--muted);opacity:.85;margin-top:3px}
+
+/* ---------- mente 60+ ---------- */
+.evid{padding:11px 0;border-top:1px solid var(--line)}
+.evid:first-child{border-top:0;padding-top:2px}
+.evid h4{font-size:.9rem;margin-bottom:4px;color:color-mix(in srgb,var(--gold) 78%,var(--txt))}
+.evid p{font-size:.85rem;color:var(--txt);line-height:1.55}
+.evid .fz{margin-top:5px;font-size:.72rem;color:var(--muted);font-style:italic}
+
+.fig{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line)}
+.fig:first-child{border-top:0;padding-top:2px}
+.fig-edad{flex:0 0 auto;width:52px;text-align:center;background:var(--card2);border:1px solid var(--line);
+  border-radius:12px;padding:6px 2px;line-height:1.15}
+.fig-edad b{display:block;font-size:1.12rem;color:var(--gold)}
+.fig-edad span{font-size:.58rem;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
+.fig-txt{flex:1;min-width:0}
+.fig-txt h4{font-size:.9rem;margin-bottom:3px}
+.fig-txt p{font-size:.83rem;color:var(--txt);line-height:1.5}
+.fig-txt .cp{font-size:.62rem;letter-spacing:.7px;text-transform:uppercase;color:var(--violet);margin-bottom:4px;font-weight:700}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 24px + env(safe-area-inset-bottom));transform:translate(-50%,22px);
+  background:color-mix(in srgb,var(--bg2) 96%,transparent);border:1px solid var(--line);padding:11px 16px;border-radius:14px;
+  font-size:.83rem;z-index:99;opacity:0;pointer-events:none;transition:.3s;box-shadow:var(--shadow);max-width:88vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (min-width:620px){ .app-main{padding-bottom:calc(var(--nav-h) + 44px)} .ring{width:172px;height:172px} }
+
+@media print{
+  body{background:#fff;color:#111}
+  .aurora,.stars,.bottom-nav,.topbar,.no-print,.warn{display:none !important}
+  .app-main{max-width:100%;padding:0}
+  .view{display:block !important}
+  .card{border:1px solid #ddd;background:#fff;box-shadow:none;page-break-inside:avoid;color:#111}
+  .muted,.acc-title span,.bar-labels,.disclaimer{color:#555 !important}
+  h1,h2,h3,h4,.age-big,.stat b{color:#111 !important;-webkit-text-fill-color:#111;background:none}
+  ul.clean li,.pillar p,.line-item b,.note p{color:#222 !important}
+  .foot{background:none;border-top:1px solid #ddd;margin-top:14px}
+  .foot-l1,.foot-l2{color:#333 !important}
+  .foot-l1 b{color:#111 !important}
+}
+
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="stars" aria-hidden="true"></div>
+<div id="warn" class="warn hidden"></div>
+
+<div class="app-wrap">
+  <header class="topbar">
+    <div class="brand-mini">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f5c56b"/><stop offset="100%" stop-color="#8b6cff"/>
+        </linearGradient></defs>
+        <circle cx="50" cy="50" r="38" fill="none" stroke="url(#gb)" stroke-width="2" opacity=".5"/>
+        <g id="brandDots"></g>
+        <circle cx="50" cy="50" r="5" fill="currentColor"/>
+      </svg>
+      <div>
+        <p class="brand-name">Septenios</p>
+        <p class="brand-tag" id="tagLine">Ciclos de 7 años · 7 ciclos de 52 días</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn pulse hidden" id="btnInstalar" aria-label="Instalar la aplicación" title="Instalar la app">⇩</button>
+      <button class="icon-btn" id="btnTema" aria-label="Cambiar tema">◐</button>
+      <button class="icon-btn" id="btnFechaTop" aria-label="Cambiar fecha de nacimiento">✎</button>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="view active" id="view-informe"></section>
+    <section class="view" id="view-septenios"></section>
+    <section class="view" id="view-ciclos"></section>
+    <section class="view" id="view-mente"></section>
+    <section class="view" id="view-diario"></section>
+    <section class="view" id="view-glosario"></section>
+    <section class="view" id="view-perfil"></section>
+    <noscript><div class="card"><h2>Esta app necesita JavaScript</h2><p class="muted">Actívalo o abrí el archivo en un navegador para ver tu informe.</p></div></noscript>
+
+    <footer class="foot">
+      <p class="foot-l1">Creado y diseñado por: <b>Victor. M.F. Avilan.</b></p>
+      <p class="foot-l2">Valor Agregado - Todos los derechos reservados</p>
+    </footer>
+  </main>
+
+  <nav class="bottom-nav" role="navigation">
+    <button class="nav-item active" data-view="informe">
+      <svg viewBox="0 0 24 24"><path d="M12 3.6l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.9l6.1-.7z"/></svg><span>Informe</span>
+    </button>
+    <button class="nav-item" data-view="septenios">
+      <svg viewBox="0 0 24 24"><path d="M4 19h16M6 16V10M11 16V6M16 16v-5M21 16v-8"/></svg><span>Septenios</span>
+    </button>
+    <button class="nav-item" data-view="ciclos">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4"/></svg><span>Ciclos</span>
+    </button>
+    <button class="nav-item" data-view="mente">
+      <svg viewBox="0 0 24 24"><path d="M12 4.2c-3.6 0-6.5 2.4-6.5 5.4 0 1.6.8 3 2.1 4v2.2c0 .7.6 1.3 1.3 1.3h6.2c.7 0 1.3-.6 1.3-1.3v-2.2c1.3-1 2.1-2.4 2.1-4 0-3-2.9-5.4-6.5-5.4z"/><path d="M9.5 4.2V2.6h5v1.6M12 17v2.6M8.6 19.6h6.8"/></svg><span>Mente 60+</span>
+    </button>
+    <button class="nav-item" data-view="diario">
+      <svg viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6.5A1.5 1.5 0 0 1 5 19.5zM9 8h6M9 12h6M9 16h4"/></svg><span>Diario</span>
+    </button>
+    <button class="nav-item" data-view="glosario">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .9-1 1.6v.4"/><path d="M12 17.2v.1"/></svg><span>Glosario</span>
+    </button>
+    <button class="nav-item" data-view="perfil">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.7"/><path d="M4.5 20c1.2-3.6 4-5.4 7.5-5.4s6.3 1.8 7.5 5.4"/></svg><span>Perfil</span>
+    </button>
+  </nav>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* ---- Instalación como app (PWA) + Service Worker ----
+   Todo está protegido: si el navegador o el visor no lo permiten, la app sigue funcionando igual. */
+(function () {
+  try {
+    var deferred = null, btn = document.getElementById('btnInstalar');
+
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault(); deferred = e;
+      if (btn) btn.classList.remove('hidden');
+    });
+    window.addEventListener('appinstalled', function () {
+      deferred = null; if (btn) btn.classList.add('hidden');
+    });
+    if (btn) btn.addEventListener('click', function () {
+      if (!deferred) return;
+      deferred.prompt();
+      deferred.userChoice.then(function (r) {
+        if (r && r.outcome === 'accepted') btn.classList.add('hidden');
+        deferred = null;
+      }).catch(function () { });
+    });
+
+    // El registro va en su propia función con try/catch: en visores embebidos
+    // (iframe con sandbox sin allow-same-origin) leer navigator.serviceWorker
+    // lanza SecurityError, y eso no puede romper la app.
+    function registrarSW() {
+      try {
+        if (!('serviceWorker' in navigator)) return;
+        if (window.isSecureContext === false) return; // http sin TLS o iframe aislado: nada que hacer
+        var seguro = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        if (!seguro) return;
+        navigator.serviceWorker.register('sw.js').catch(function (e) {
+          console.warn('Service Worker no registrado:', e && e.message);
+        });
+      } catch (e) { console.warn('Service Worker no disponible:', e && e.message); }
+    }
+    window.addEventListener('load', registrarSW);
+  } catch (e) { console.warn('PWA no disponible en este visor:', e && e.message); }
+})();
+</script>
+<script>
+/* =========================================================
+   SEPTENIOS v3 · Ciclos de 7 años + 7 ciclos anuales de 52 días
+   Fuentes principales:
+   · Beatriz Leveratto, "Cada siete años. La vida y sus estaciones astrológicas"
+   · R. Steiner (1907) y C. G. Jung: septenios y desarrollo de la conciencia
+   · Astrología védica: los 7 ciclos anuales de 52 días y sus regentes
+   · Psicología del desarrollo y neurociencia del envejecimiento sano
+   ========================================================= */
+
+/* ------------------------ 1. GRANDES TRAMOS ------------------------ */
+const ESTRUCTURAS = [
+  { id: 'e1', nombre: 'Primera estructura', rango: '0 – 28', ciclo: 'Primer ciclo · la primera mitad de la vida', nota: 'El ser en el clan: cómo nos presentamos a la vida. La identidad se nutre (y se condiciona) con lo que la familia de origen nos transmite.' },
+  { id: 'e2', nombre: 'Segunda estructura', rango: '28 – 42', ciclo: 'Primer ciclo', nota: 'El ser en el mundo: construimos lugar propio, oficio, pareja y familia. Es el nudo de la obra.' },
+  { id: 'e3', nombre: 'Reorientación y cosecha', rango: '42 – 56', ciclo: 'Segundo ciclo', nota: 'El ser en la vida: la conciencia de finitud, el balance de lo logrado y el contacto con la propia herida.' },
+  { id: 'e4', nombre: 'Tercera estructura', rango: '56 – 84', ciclo: 'Segundo ciclo · desenlace', nota: 'La personalidad en el mundo espiritual: cuatro portales transpersonales que resuenan con Urano, Neptuno y Plutón.' },
+  { id: 'e5', nombre: 'Bonus track', rango: '84 +', ciclo: 'Bonus track existencial', nota: 'Un tiempo inédito: intimidad con el misterio, desapego y el arte del buen morir.' }
+];
+
+/* ------------------------ 2. LOS TRECE SEPTENIOS ------------------------ */
+const SEPTENIOS = [
+  {
+    n: 1, rango: '0 – 7', nombre: 'El mundo familiar', regente: 'Luna', glifo: '☽', est: 0,
+    subtitulo: 'Septenio lunar · somos recibidos por el mundo familiar',
+    esencia: 'Los primeros siete años están regidos por la Luna: afecto, alimento, abrigo y contención. El cuerpo y las emociones primarias se conforman al mismo tiempo y la supervivencia depende por completo de otro.',
+    identidad: 'La primera visión del mundo y de la propia identidad se arma desde el núcleo familiar; aparecen las nociones de lo correcto y lo incorrecto.',
+    social: 'Se pasa de la simbiosis intrauterina a la conciencia de ser una persona individual. La familia es el mundo entero.',
+    emocional: 'Se siembran las emociones primarias y su regulación: calmarse con otro, tolerar la espera, nombrar lo que se siente.',
+    caract: [
+      'Las necesidades corporales y emocionales básicas son las protagonistas.',
+      'Prevalece el mundo familiar y materno; el hogar es el eje insustituible.',
+      'Dependencia absoluta de otro para sobrevivir: estado de necesidad y vulnerabilidad.',
+      'Se conforman las emociones primarias y su relación con el cuerpo.',
+      'Se desarrolla la autoridad: la ley y los límites, con las primeras nociones de deber y realidad.',
+      'Se incorporan las normas morales: distinguir lo que está bien de lo que está mal.',
+      'Se constituye la primera visión del mundo y de la propia identidad.',
+      'Surgen las primeras indagaciones sobre el sentido de la vida y lo sobrenatural.',
+      'Se descubren los primeros límites: la espontaneidad define la etapa.'
+    ],
+    claves: [
+      'Atender el crecimiento: la falta de cuidados imprime carencias difíciles de revertir (cuerpo y afecto).',
+      'La supervivencia depende de ser mirado y querido. Sin atención suficiente quedamos en actitud de demanda toda la vida.',
+      'El pulso entre dar y recibir es necesariamente desbalanceado: hay uno que puede y otro que no.',
+      'Si curamos a nuestro niño herido y asumimos las frustraciones normales, ganamos autonomía y confianza.',
+      'Una figura materna atemorizada o ausente endurece al niño y apaga su sensibilidad para experimentar.',
+      'A esta edad somos "blanditos": cuerpo y psiquis maleables. El juego y la creatividad dan permiso para la originalidad futura.'
+    ],
+    hitos: ['~3 años: andar, hablar y pensar, las tres grandes conquistas', '6-7 años: caen los dientes de leche e ingresa a la escuela: empieza a hacerse cargo de su propia estructura de personalidad'],
+    retos: ['Carencias de cuidado o de límites', 'Rutinas impredecibles y separaciones sin preparación', 'Exceso de pantallas en lugar de juego y contacto'],
+    practicas: ['Rutinas estables y despedidas breves y claras', 'Juego libre y naturaleza cada día', 'Cuentos, canciones y actividades rítmicas', 'Alimentación variada para educar el gusto'],
+    lens: [
+      'Sembrar presencia: rutinas cálidas y promesas cumplidas.',
+      'Cuidar el clima emocional: menos estímulos y más contacto.',
+      'Nombrar el mundo: palabras nuevas, cuentos y preguntas.',
+      'Jugar juntos: música, belleza y ternura en casa.',
+      'Movimiento libre: correr, trepar, descargar energía.',
+      'Ampliar horizontes: naturaleza, animales, paseos nuevos.',
+      'Cerrar con calma: orden, despedidas y descanso.'
+    ],
+    afirmacion: 'El mundo es un lugar confiable y mis necesidades importan.'
+  },
+  {
+    n: 2, rango: '7 – 14', nombre: 'El aprendizaje y el juego', regente: 'Mercurio', glifo: '☿', est: 0,
+    subtitulo: 'Septenio mercurial · la mente desplaza a la emoción',
+    esencia: 'Mercurio protagoniza esta etapa: aprender, comunicar, pensar, analizar, jugar e intercambiar. La energía vital entra en latencia y se vuelca hacia la socialización y el conocimiento.',
+    identidad: 'Se construye una imagen social de uno mismo; aparece la comparación con los pares y la identidad necesita un "adversario" contra quién medir su potencia.',
+    social: 'Los amigos se vuelven tan importantes como antes lo eran la familia y la comida. Surgen los liderazgos y también el acoso escolar.',
+    emocional: 'La emoción cede terreno ante la razón: se aprende a entender y responder en lugar de sólo reaccionar.',
+    caract: [
+      'La mente toma protagonismo y desplaza a la emoción.',
+      'Ingreso y permanencia en la escuela primaria.',
+      'Primeras experiencias de salida del hogar y apertura al mundo de los vínculos: importancia de los amigos.',
+      'Se estimula y fomenta la capacidad de aprender.',
+      'El desarrollo del conocimiento y la acumulación de datos son fundamentales.',
+      'La expresión y el juego son característicos de esta etapa.',
+      'Se produce la construcción de una imagen social de uno mismo.',
+      'Se confrontan las creencias, las ideas y los valores adquiridos en la primera etapa.',
+      'Los talentos creativos naturales toman cauces concretos; se explora la potencia y el poder.'
+    ],
+    claves: [
+      'La vitalidad desbordante y el anhelo de descubrimiento deben ser atendidos y guiados: aún no hay capacidad para evaluar riesgos.',
+      'El mayor o menor desarrollo intelectual depende de la flexibilidad y los recursos de la familia; el miedo en el hogar funda temor hacia lo diferente.',
+      'Si el adulto está ausente de su rol, quedamos a expensas de nuestro propio criterio sobre el peligro.',
+      'Los talentos naturales necesitan un adulto que acompañe, sostenga y suelte, como al aprender a andar en bicicleta.',
+      'Es la ventana ideal para idiomas, instrumentos, deporte y arte: si las lenguas no se estudian aquí, después cuesta incorporarlas con fluidez.',
+      'Al probar la propia potencia aparece la polarización entre líderes y víctimas, con riesgo de bullying.',
+      'Aquí se adquieren las herramientas intelectuales, sociales y corporales para valerse por uno mismo.'
+    ],
+    hitos: ['Consolidación de la lectura, la escritura y el cálculo', '9-11 años: la "crisis del Rubicón": el mundo se vuelve más duro de lo que parecía', '~12 años: pensamiento abstracto incipiente y mayor autonomía'],
+    retos: ['Etiquetas que se vuelven identidad ("el flojo", "la tímida")', 'Acoso escolar o exclusión del grupo', 'Agendas saturadas sin tiempo libre de juego'],
+    practicas: ['Una actividad donde brille: arte, deporte, música, manualidades', 'Hablar del error como parte normal del aprendizaje', 'Conversar sobre amistades sin resolver los conflictos por él o ella', 'Mirar el cielo, las estrellas y la naturaleza juntos'],
+    lens: [
+      'Dar un reto a su medida para fortalecer la confianza.',
+      'Hablar de emociones: poner nombre a lo que siente.',
+      'Alimentar la curiosidad: proyectos, preguntas y lecturas.',
+      'Celebrar amistades y practicar la reparación de conflictos.',
+      'Actividad física regular y metas alcanzables.',
+      'Ampliar el mundo: viajes, idiomas, comunidad.',
+      'Revisar límites y hábitos antes del cierre del año escolar.'
+    ],
+    afirmacion: 'Puedo aprender, equivocarme y volver a intentarlo; tengo un lugar.'
+  },
+  {
+    n: 3, rango: '14 – 21', nombre: 'La individualidad y el amor', regente: 'Venus', glifo: '♀', est: 0,
+    subtitulo: 'Septenio venusino · cómo despertamos a la individualidad y al amor',
+    esencia: 'Fin de la pubertad e inicio de la adolescencia. El conocimiento y el juego dan paso a la contemplación, la sensibilidad y la estética; florecen las fantasías, el romanticismo y la fuerza de la atracción.',
+    identidad: 'Crisis de identidad que oscila entre la rebelión y la obediencia. La identidad se configura a través de la aprobación de la mirada del otro.',
+    social: 'Los valores y la autoridad de la familia se confrontan; los amigos "tienen la verdad" y la familia "sólo trae problemas".',
+    emocional: 'Primera conciencia de género y sexual, enamoramientos e idealizaciones; gran intensidad vital y pasiones existenciales.',
+    caract: [
+      'El conocimiento y el juego dan paso a la contemplación, la sensibilidad y la apreciación.',
+      'Conciencia de género y sexual que abre los encuentros amorosos.',
+      'Se valora la estética de la imagen corporal, del arte y de la cultura.',
+      'Los cambios corporales activan la seducción y la sexualidad.',
+      'Aparecen percepciones sobre el misterio de la vida, el misticismo y la filosofía.',
+      'Se confrontan los valores y la autoridad de la familia.',
+      'Crisis de identidad: conflicto entre rebelión y obediencia.',
+      'Se definen y orientan los principales rasgos de la vocación.',
+      'Se forjan la intensidad vital y la propia potencia.'
+    ],
+    claves: [
+      'Iniciamos relaciones ligadas a la seducción y al magnetismo; la aceptación de los pares y resultar atractivo se vuelven relevantes.',
+      'Alrededor de los 14 años Saturno llega a la mitad de su recorrido: necesitamos figuras con quien confrontarnos y una autoridad que ponga límites saludables.',
+      'Los primeros choques contra los límites configuran la futura capacidad de superarnos o resignarnos ante las frustraciones.',
+      'La mirada tiende a la polarización: amigos como verdad, familia y escuela como exigencia.',
+      'El amor —ilusorio o real— es el motor esencial y el gran agente transformador del septenio; por eso aparecen el síndrome de Romeo y Julieta y las grandes idealizaciones.',
+      'Necesitamos de los otros para ordenar este complejo juego de proyecciones.'
+    ],
+    hitos: ['~18,5 años: segundo nodo lunar; momento de confusión que pide acompañamiento', '~21 años: nacimiento del Yo o individualidad'],
+    retos: ['Presión de imagen y comparación constante en redes', 'Decisiones vocacionales tomadas con prisa', 'Conflictos familiares por límites y autonomía'],
+    practicas: ['Escribir para aclarar lo que pienso', 'Conversar con adultos que escuchen sin juzgar', 'Elegir actividades por interés genuino, no por imagen', 'Aprender con las manos: oficios, instrumentos, manualidades'],
+    lens: [
+      'Elegir una dirección propia, no la esperada por otros.',
+      'Escuchar el mundo emocional sin juzgarlo ni minimizarlo.',
+      'Explorar estudios, oficios y vocaciones con información real.',
+      'Cuidar amistades y primeros vínculos: acuerdos y respeto.',
+      'Canalizar la energía: deporte, arte, causas que importen.',
+      'Probar lejos: viajes, voluntariado, proyectos grandes.',
+      'Ordenar prioridades y cerrar etapas escolares con conciencia.'
+    ],
+    afirmacion: 'Estoy en construcción y eso es legítimo; puedo elegir mi camino.'
+  },
+  {
+    n: 4, rango: '21 – 28', nombre: 'La posición en el mundo', regente: 'Sol', glifo: '☉', est: 0,
+    subtitulo: 'Septenio solar · la definición de nuestra posición en el mundo',
+    esencia: 'La personalidad gestada dentro del clan llega a su máxima maduración y sale al mundo exterior. Se abre el mundo de las profesiones y el sentido de la vocación.',
+    identidad: 'Ya está más claro quiénes somos y qué queremos; se conforma una imagen propia sobre la que girarán las decisiones.',
+    social: 'La sociedad reconoce la mayoría de edad: somos responsables ante la ley y la patria potestad queda sin efecto. La familia decrece como referencia.',
+    emocional: 'Se desinflan las proyecciones de la adolescencia y se desarrolla una aceptación del propio ser; la sensibilidad mística y artística cobra forma concreta.',
+    caract: [
+      'Gran maduración de los individuos: ya está más claro quiénes somos y qué queremos de la vida.',
+      'Se conforma una imagen propia sobre la que girarán las decisiones.',
+      'Se abre el mundo de las profesiones y el sentido de la vocación personal.',
+      'Anhelo —o presión— de exponer una imagen propia frente a la sociedad.',
+      'La personalidad gestada dentro del clan familiar llega a su punto máximo de maduración.',
+      'Visión del porvenir y necesidad de proyectar anhelos hacia el futuro.',
+      'La sensibilidad mística y artística cobra manifestación y sustancia concreta.',
+      'Se fortalecen el contacto y el compromiso con la potencia sexual.',
+      'Fin de la Primera Estructura de la Personalidad: se habilita una vida más allá del clan.'
+    ],
+    claves: [
+      'Las preguntas "¿quién soy?" y "¿qué quiero?" obligan a revisar todos los supuestos sobre quién creemos ser.',
+      'La polarización entre buenos y malos empieza a resultar poco creíble y las proyecciones adolescentes se evaporan.',
+      'La realidad objetiva se convierte en el gran maestro para superar espejismos y proyecciones.',
+      'Es un tiempo para desilusionarse de los hechizos desmedidos que formulamos sobre nosotros mismos y aceptar el propio ser.',
+      'La carrera elegida a los 18 suele tener alto desconocimiento vocacional: hacia la mitad del septenio aparece una nueva crisis de vocación.',
+      'Los claustros, la facultad o el trabajo abren un mundo nuevo de ideas y relaciones.',
+      'Las frustraciones sobre la vocación elegida son un tema fundamental de este periodo.'
+    ],
+    hitos: ['Primeras responsabilidades laborales, económicas y legales', 'Steiner advertía: lo que no se experimenta aquí puede reaparecer a los cuarenta y tantos'],
+    retos: ['Inestabilidad económica y miedo a "quedarse atrás"', 'Comparación permanente con la propia generación', 'Agotamiento por exceso de horas y de exigencia'],
+    practicas: ['Elegir dos o tres compromisos y honrarlos', 'Construir red de apoyo antes de necesitarla', 'Ordenar finanzas desde ahora', 'Buscar contacto con parques, jardines y ciclos de la naturaleza'],
+    lens: [
+      'Definir identidad profesional y mostrar tu trabajo.',
+      'Construir una base emocional propia más allá de la familia.',
+      'Aprender habilidades concretas que abran puertas.',
+      'Elegir vínculos con criterio, no solo con intensidad.',
+      'Atreverse: mudanzas, entrevistas, proyectos propios.',
+      'Viajar y explorar antes de fijar estructura.',
+      'Poner orden: dinero, contratos y compromisos asumidos.'
+    ],
+    afirmacion: 'Puedo sostener lo que elijo y también corregir el rumbo.'
+  },
+  {
+    n: 5, rango: '28 – 35', nombre: 'Un espacio propio', regente: 'Marte', glifo: '♂', est: 1,
+    subtitulo: 'Septenio marciano · la construcción de un espacio propio',
+    esencia: 'Marte, el Dios de la guerra, rige estos años: despierta el guerrero interno que sale a luchar y a hacer valer su deseo. Se conquista un espacio propio en el mundo y se imprime un sello personal.',
+    identidad: 'Se despliega el sentido de vida adoptado en los últimos años y se busca la confirmación de la vocación elegida.',
+    social: 'Nace una nueva estructura de vida a partir del corrimiento de la familia de origen; se experimentan nuevos juegos de poder en pareja, trabajo, familia y amigos.',
+    emocional: 'Confianza desconocida hasta ahora; la energía psíquica y corporal alcanza para sostener deseo, exigencias y proyectos al mismo tiempo.',
+    caract: [
+      'Búsqueda de mayor independencia y autodeterminación.',
+      'Se concretan los proyectos de vida propia: familia, profesión o trabajo determinado.',
+      'Gran energía para la conquista de los deseos y la fuerza de cada logro individual.',
+      'Se despliega el sentido de vida que adoptamos en los últimos años.',
+      'Búsqueda de logros que confirmen la vocación elegida en esta etapa.',
+      'Anhelo de confirmar los ideales esbozados alrededor del amor.',
+      'Necesidad de irradiar los puntos más singulares y creativos de la personalidad.',
+      'El nacimiento de los hijos se traduce en un camino donde moldear la propia creatividad.',
+      'Nuevos juegos de poder en las relaciones con la pareja, el trabajo, la familia y los amigos.'
+    ],
+    claves: [
+      'A los 28 años se produce un nuevo nacimiento: hay que transformar lo heredado y usarlo para construir algo propio.',
+      'Liberación de los padres: dejan de ser nuestro tanque de reserva y aprendemos a sostenernos sobre nuestros pies.',
+      'Si un adulto mayor sigue resolviéndonos la totalidad de las necesidades económicas, lejos de ayudarnos nos perjudica: nos evita los aprendizajes de esta etapa.',
+      'Cerca de los 33 años, la "edad de Cristo", podemos bajarnos de la cruz y soltar las culpas por no cumplir las expectativas familiares.',
+      'Es un tiempo para arremangarse y hacerse cargo: hijos, trabajo, vivienda; el imperio propio requiere toda la atención.',
+      'Contamos con la energía suficiente —psíquica y corporal— para reconocer lo que anhelamos y responder a las exigencias.',
+      'En la mayor parte de los casos nacen los hijos: una nueva forma de amor que nos ubica en otro lugar del Universo.'
+    ],
+    hitos: ['28-29 años: primer retorno de Saturno; realismo sobre quién soy y qué quiero', '~33 años: la "edad crística": morir a algo para nacer a algo', '~37 años: segundo nodo lunar; cambios de trabajo, residencia, ideas o vínculos'],
+    retos: ['Sobrecarga y sensación de no llegar a todo', 'Culpa por no ser suficiente en ningún rol', 'Abandono del autocuidado y del sueño'],
+    practicas: ['Bloquear tiempo propio en la agenda', 'Renegociar cargas en casa y en el trabajo', 'Escucharse: silencio, escritura, soledad elegida', 'Agradecer y sonreír como práctica cotidiana'],
+    lens: [
+      'Consolidar lo construido sin abandonar el autocuidado.',
+      'Revisar qué necesito yo, no solo lo que necesitan los demás.',
+      'Negociar y comunicar con claridad en el trabajo y en casa.',
+      'Cuidar la pareja y la comunidad con tiempo de calidad real.',
+      'Sostener el cuerpo: fuerza, sueño y controles de salud.',
+      'Expandir con cabeza: proyectos, equipo, patrimonio.',
+      'Soltar cargas que no me corresponden y cerrar pendientes.'
+    ],
+    afirmacion: 'Puedo cuidar de otros sin desaparecer yo.'
+  },
+  {
+    n: 6, rango: '35 – 42', nombre: 'La consolidación', regente: 'Júpiter', glifo: '♃', est: 1,
+    subtitulo: 'Septenio jupiteriano · la consolidación de nuestras emociones',
+    esencia: 'El impulso constructor iniciado a los 28 se asienta y muestra su definición concreta: lo que era esperanza se encuentra con las posibilidades reales de realización.',
+    identidad: 'Sensación de meseta existencial con cuestionamientos sobre la realización personal; se intuye una vida más auténtica y genuina.',
+    social: 'Se reorienta el sentido de vida y se proyectan nuevos horizontes: apertura filosófica y espiritual hacia otros rumbos.',
+    emocional: 'Gran madurez emocional en los actos: nos sentimos seguros y estables frente a nosotros mismos y exploramos las profundidades del inconsciente.',
+    caract: [
+      'Se consolida la Estructura de la Personalidad que iniciamos a los 28 años.',
+      'Gran madurez emocional: comenzamos a sentirnos seguros y estables frente a nosotros mismos.',
+      'Sensación de meseta existencial, con cuestionamientos sobre la realización personal deseada.',
+      'Serie de intuiciones creativas y percepción de formar parte de una vida más auténtica y genuina.',
+      'Se reorienta el sentido de la vida y se proyectan nuevas cuestiones hacia el futuro.',
+      'Nuevos horizontes: apertura filosófica y espiritual hacia otros rumbos.',
+      'Nos tomamos un tiempo para meditar sobre el significado de quién creemos ser en realidad.',
+      'Necesidad de expansión del ser más allá de la propia imagen; se exploran las profundidades del inconsciente.',
+      'Se pone a prueba la potencia: pareja, hijos, dinero y ambición de poder.',
+      'Reconocimiento hacia los ámbitos de aprendizaje que habilitan mayor crecimiento.'
+    ],
+    claves: [
+      'Logremos o no lo que nos esforzamos por construir, aparece una sensación de "falta" constante y la necesidad de dar un nuevo giro a la vitalidad.',
+      'El "guerrero constructor del imperio" del septenio anterior, con su egocentrismo, empieza a resultarnos insostenible.',
+      'Sumidos en exigencias de trabajo o familia sentimos restringidas la creatividad y la libertad individual: "¿quién es esta persona que sólo trabaja y sostiene a los demás?".',
+      'Es un momento para hacernos cargo de esta crisis de sentido sin dinamitar todo lo logrado: la paradoja de "tenerlo todo" y sentir que no alcanza.',
+      'El alma quiere ser escuchada y produce un tironeo: búsqueda de conocimiento personal, estudios o terapias; o bien conformismo para silenciar lo que necesitamos.',
+      'Surge la percepción de que el combustible de la propia vitalidad no durará para siempre.',
+      'Nos preguntamos si fuimos libres para elegir nuestra vida o sólo respondimos a mandatos familiares.',
+      'La observación de uno mismo obliga a prestar más atención al cuerpo: ya no podemos comer cualquier cosa sin costo físico.'
+    ],
+    hitos: ['~42 años: oposición de Urano al Urano natal; momento clave para replantear la autenticidad y accionar cambios liberadores', 'Cierre del Primer Ciclo: termina el primer acto de la obra'],
+    retos: ['Sensación de estancamiento o tiempo perdido', 'Conversaciones de pareja postergadas', 'Miedo a "empezar de nuevo" pasados los cuarenta'],
+    practicas: ['Inventario honesto: qué conservo, qué ajusto, qué suelto', 'Retomar un sueño o actividad olvidada', 'Informarse antes de cambiar: formación, números, opciones', 'Escribir qué haría si el miedo no decidiera por mí'],
+    lens: [
+      'Revisar la autenticidad: qué sigue siendo mío de verdad.',
+      'Elaborar el duelo por lo que no fue como esperaba.',
+      'Informarme antes de cambiar: opciones, números, formación.',
+      'Reconciliarme con mi cuerpo y con mis vínculos.',
+      'Dar el paso concreto que vengo postergando.',
+      'Sembrar el proyecto de la segunda mitad de la vida.',
+      'Hacer balance honesto y soltar lo que ya no sostiene.'
+    ],
+    afirmacion: 'Todavía estoy a tiempo: ajustar no es fracasar.'
+  },
+  {
+    n: 7, rango: '42 – 49', nombre: 'La reorientación', regente: 'Saturno', glifo: '♄', est: 2,
+    subtitulo: 'Septenio saturnino · reorientación de la vida',
+    esencia: 'El segundo acto de la obra se abre. Es el tiempo de una primera perspectiva global del proceso vivido, con conciencia de finitud y de los hechizos que animaron la vida.',
+    identidad: 'Se evalúan los actos de la propia vida y se toma conciencia de los roles y mitos asumidos inconscientemente; se habilita la autenticidad en las relaciones.',
+    social: 'Nos volvemos referentes para los otros frente a los hijos, por oposición o rebeldía; declina la figura de los padres como autoridad.',
+    emocional: 'Sentimiento profundo de juicio sobre lo vivido; desilusión y, al mismo tiempo, liberación que permite gestar nuevos ideales.',
+    caract: [
+      'Reorientación de la existencia y primera perspectiva global del proceso de vida recorrido.',
+      'Se altera la vivencia del tiempo.',
+      'Conciencia de la finitud de la vida y de la posibilidad de la muerte (el cuerpo es testigo: en las mujeres, la menopausia).',
+      'Sentimiento de juicio muy profundo: se evalúan los actos de la propia vida.',
+      'Estado de fluidez de la creatividad y rescate de la libertad.',
+      'Se habilitan los sentimientos de realización o frustración.',
+      'Conciencia de los hechizos que animaron la vida y que confundimos con la realidad: roles y mitos asumidos de modo inconsciente.',
+      'Desilusión y, al mismo tiempo, una liberación que permite gestar nuevos ideales.',
+      'Nueva conciencia de la realidad y aceptación de los propios límites: podemos modular expectativas y tiempos.',
+      'Autenticidad en las relaciones personales, que provoca rupturas o revitalización de vínculos.',
+      'Nos presentamos como referentes para los otros; se afirman nuestros recursos y la capacidad de generar materia.',
+      'Se toma responsabilidad sobre las herencias y el bagaje de la familia.'
+    ],
+    claves: [
+      'Se evalúa y replantea toda la vida: balance profundo para descartar lo que ya no sentimos y comprometernos sólo con lo que nos entusiasma.',
+      'Giro de 180 grados para desarrollar los asuntos pendientes con la propia existencia: la vida no es infinita y lo genuino se vuelve prioritario.',
+      'Ya no necesitamos "probarnos" nada a nosotros mismos.',
+      'Sirve para ver que estamos en la mitad de la vida y hemos iniciado un retorno hacia nosotros mismos; si soltamos la necesidad de aprobación, ganamos libertad y confianza.',
+      'Tiempo de cosechar réditos y placeres: la vitalidad juvenil merma, el cuerpo envejece, y aparecen dolencias o la menopausia —la "muerte" de la creatividad corporal y el inicio de una sexualidad más libre.',
+      'El aspecto exterior se deteriora mientras el interior se vuelve más atractivo: el cuerpo declina y el alma se activa.',
+      'Nuestros padres se vuelven vulnerables; nos convertimos en la generación más sólida, entre hijos que aún dependen y padres que necesitan nuestra fortaleza.',
+      'La pareja necesita formalizar un nuevo contrato: son muy comunes las separaciones cuando la crianza de los hijos deja de sostener el vínculo.'
+    ],
+    hitos: ['42 años: oposición de Urano; el "segundo nacimiento" de la vida adulta', '49 años: ascenso a la Pirámide de la Personalidad, la plenitud de la estructura formal'],
+    retos: ['Duelo por lo no vivido y urgencia por resolverlo todo de inmediato', 'Rupturas de pareja no conversadas', 'Cuidar a hijos y padres al mismo tiempo sin descuidarse'],
+    practicas: ['Escribir el balance de lo vivido sin juzgarlo', 'Elegir un asunto pendiente y darle fecha', 'Renegociar el contrato de pareja con honestidad', 'Reservar energía para uno mismo, no sólo para los demás'],
+    lens: [
+      'Definir qué vale la pena sostener de aquí en adelante.',
+      'Honrar el duelo por lo que no fue y por lo que cambia.',
+      'Revisar creencias y roles heredados que ya no encajan.',
+      'Renegociar vínculos: sincerar antes de romper.',
+      'Cuidar la salud con constancia, no con heroicidades.',
+      'Abrir un proyecto con sentido, no por obligación.',
+      'Cerrar cuentas pendientes: deudas, promesas, silencios.'
+    ],
+    afirmacion: 'Puedo soltar la versión prestada de mí y elegir la propia.'
+  },
+  {
+    n: 8, rango: '49 – 56', nombre: 'El balance de los logros', regente: 'Quirón', glifo: '⚷', est: 2,
+    subtitulo: 'Septenio quirioniano · la crisis de los 49 y el sabio herido',
+    esencia: 'Quirón —el centauro herido que cura a otros pero no puede curarse— protagoniza estos años: contacto con la propia herida, resignificación del dolor, servicio y resiliencia.',
+    identidad: 'Se transforma la sensación de originalidad, singularidad y autenticidad; se reconocen y aceptan los logros y los fracasos, lo que somos y lo que ya no podremos ser.',
+    social: 'Desarrollo importante de la identidad frente a las relaciones sociales; posibilidad de erigirse como referente o autoridad para la familia.',
+    emocional: 'Se desarrolla un contacto con las heridas de la existencia y se regeneran aspectos tan importantes como la creatividad o la sexualidad.',
+    caract: [
+      'Se dan a conocer los frutos de la Estructura de la Personalidad sembrada alrededor de los 28 años.',
+      'Sensación de plenitud y culminación sobre los asuntos de la profesión o la familia.',
+      'Desarrollo importante de la identidad frente a las relaciones sociales en general.',
+      'Conciencia de la posibilidad de erigirse como referente o autoridad para la familia.',
+      'Se reconocen y aceptan los logros y los fracasos: lo que somos y lo que ya no podremos ser.',
+      'Se desarrolla un contacto con las heridas de nuestra existencia.',
+      'Se regeneran aspectos tan importantes como la creatividad o la sexualidad.',
+      'Se transforma la propia sensación de originalidad, singularidad y autenticidad.',
+      'Se replantea el sentido de la vida más allá de la familia o la profesión.',
+      'Se producen visiones de una vida trascendente y se proyectan nuevas posibilidades frente al futuro.'
+    ],
+    claves: [
+      'Es un ritual de pasaje: empiezan a regir planetas invisibles que proponen estados más sutiles de conciencia. El hechizo de "buscar la propia felicidad" colapsa y el alma nos propone algo.',
+      'Umbral para desplegar una aceptación sabia: ya vivimos lo suficiente para mirar la vida más allá de un logro individual.',
+      'Oportunidad de resignificar el propio dolor o, por el contrario, de cristalizar una identidad de fracaso y resignación difícil de desarmar después.',
+      'Tiempo de conectar los puntos: cosechar lo sembrado alrededor de los 28 años y encontrarle sentido a las dos últimas décadas.',
+      'Podemos ver la calidad de nuestros logros y cuestionar el camino elegido; si no resignificamos los fracasos, quedamos instalados en el resentimiento.',
+      'Culminación de las formas familiares y profesionales elegidas: así como nos independizamos de los padres entre los 21 y los 28, ahora nos liberamos de la manutención de los hijos.',
+      'Empieza a insinuarse un intercambio generacional en el sostén económico: a veces habrá que sostener a los propios padres.'
+    ],
+    hitos: ['49 años: la Pirámide de la Personalidad y la crisis de los 49', '56 años: cierre del Segundo Ciclo y apertura de la Tercera Estructura'],
+    retos: ['Resentimiento por lo no alcanzado', 'Identificarse con la herida en lugar de resignificarla', 'Vacío de rol cuando los hijos se van'],
+    practicas: ['Nombrar la herida y escribir qué enseñanza dejó', 'Poner el oficio al servicio de otros: mentoría, docencia, voluntariado', 'Resignificar los fracasos en una conversación honesta', 'Reabrir la creatividad: algo que no haya hecho nunca'],
+    lens: [
+      'Reconocer la cosecha: qué sí quedó hecho.',
+      'Resignificar la herida sin convertirla en identidad.',
+      'Revisar la vocación a la luz de la experiencia.',
+      'Devolver algo: enseñar, acompañar, servir.',
+      'Recuperar el cuerpo y la sexualidad sin exigencias juveniles.',
+      'Proyectar el tercer acto con intención, no por inercia.',
+      'Soltar el control sobre lo que ya no depende de mí.'
+    ],
+    afirmacion: 'Mi herida también es mi modo de comprender y acompañar.'
+  },
+  {
+    n: 9, rango: '56 – 63', nombre: 'La trascendencia de la imagen personal', regente: 'Urano', glifo: '♅', est: 3,
+    subtitulo: 'Primer portal transpersonal · una oferta de libertad',
+    esencia: 'Comienza el desenlace de la obra. Liberados del rol de hijos y de la manutención de los hijos, se abre una nueva estructura de personalidad sostenida en el mundo interno y no en la ambición social.',
+    identidad: 'La pregunta ya no es "quién debo ser" sino "quién soy más allá de los roles que asumí". Es el primer septenio regido por astros no visibles: la conciencia supera la necesidad de confirmación del ego.',
+    social: 'Nueva forma de participación social: servicio, espiritualidad y solidaridad antes que posición; aparece una sensación progresiva de invisibilidad social o familiar.',
+    emocional: 'Se libera la necesidad de esforzarse por alcanzar logros; crecen respuestas más relajadas, serenas y contemplativas.',
+    caract: [
+      'Nueva configuración del futuro: desafío de proyección que se responde con máxima libertad o con excesiva rigidez.',
+      'Sensación de permiso para iniciar una nueva vida o, en otros casos, de ser expulsados de una forma de vida en la que se anhela permanecer.',
+      'Oportunidad de disolver la sensación de "ser víctimas del destino" y descubrir el sentido creativo de la vida.',
+      'Los nuevos proyectos expresan la síntesis de lo vivido, con una sensación de equilibrio y sabiduría nunca antes percibida.',
+      'Se libera la necesidad de conquistar logros personales o posiciones sociales.',
+      'Nueva participación social: servicio, espiritualidad o solidaridad.',
+      'Se crea una nueva Estructura de la Personalidad sostenida en la comprensión del mundo interno.',
+      'Respuestas más relajadas, serenas y contemplativas antes que comprometidas con la fuerza corporal.',
+      'Se revalorizan el disfrute del cuerpo, las actividades creativas y placenteras.',
+      'Posibilidad de recuperar la pasión por las cosas más allá de toda especulación económica, profesional o afectiva.',
+      'Retiro progresivo del mundo económico o productivo: sensación de permiso y liberación, o bien de pérdida y exclusión.',
+      'Sensación progresiva de invisibilidad social o familiar: alivio y distensión, o dolor por no ser tomado en cuenta.'
+    ],
+    claves: [
+      'Se inicia la tercera etapa de la vida —el desenlace de la obra— y la vida cotidiana empieza a resultar insuficiente: estamos entrando en el portal transpersonal y espiritual.',
+      'Libres del rol de hijo y de la manutención de los hijos, aparece la gran oportunidad de ocuparnos de nosotros mismos y de desarrollar nuestra nota original y genuina.',
+      'Es el primer septenio donde el símbolo son los astros no visibles: una conciencia más allá de lo evidente que da cuenta de lo sutil y lo trascendente.',
+      'Etapa de gran conciencia y vitalidad cuyo mejor aprovechamiento aún está en desarrollo: accedimos a esta longevidad sólo desde la segunda mitad del siglo XX.',
+      'Libres de mandatos sobre "lo que corresponde a cierta edad", podemos enamorarnos y tener proyectos más allá del rol familiar: estamos escribiendo nuevas formas de habitar esta etapa.',
+      'Tiempo de cosechar frutos: se hace evidente la estabilidad familiar y laboral o, en su defecto, la resignación a la rutina.',
+      'La jubilación obliga a una toma de conciencia rotunda sobre la potencia: si no hay suficiente dinero, aparecen la restricción y el límite.'
+    ],
+    hitos: ['56 años: inicio de la Tercera Estructura de la Personalidad', 'Segundo retorno de Saturno (58-60): realismo sobre el tercer acto', '63 años: apertura del segundo portal transpersonal'],
+    retos: ['Sentirse "víctima del destino" frente al retiro', 'Invisibilidad vivida como descarte', 'Postergar la propia vida por seguir sosteniendo a otros'],
+    practicas: ['Elegir una actividad por puro gusto, sin rédito', 'Escribir qué haría si nadie me pidiera nada', 'Ordenar lo material para ganar libertad', 'Cultivar vínculos fuera de la familia'],
+    lens: [
+      'Nombrar la libertad nueva: ¿para qué la quiero usar?',
+      'Agradecer lo vivido sin exigirle más de lo que dio.',
+      'Aprender lo que siempre quise y dejé postergado.',
+      'Elegir compañía por afinidad, no por obligación.',
+      'Disfrutar el cuerpo tal como está hoy.',
+      'Proyectar algo pequeño y propio, sin especulación.',
+      'Soltar la expectativa de reconocimiento social.'
+    ],
+    afirmacion: 'Puedo ser quien soy más allá del lugar que ocupé.'
+  },
+  {
+    n: 10, rango: '63 – 70', nombre: 'La construcción del futuro', regente: 'Neptuno', glifo: '♆', est: 3,
+    subtitulo: 'Segundo portal transpersonal · los frutos de la madurez creativa',
+    esencia: 'La nueva vida iniciada a los 56 cobra estabilidad. Se plasma el aporte singular y la creatividad alcanza una plenitud y madurez que no tenía antes.',
+    identidad: 'Se conforma la personalidad gestada desde los 56 y se expresa el sentido filosófico o espiritual en las acciones cotidianas.',
+    social: 'Las generaciones siguientes toman el protagonismo; el retiro del lugar de mando se vuelve la tarea central. Se genera un nuevo diseño del hogar y del clan familiar.',
+    emocional: 'Se siente una expresión madura de potencia y contundencia en el hacer; crece la necesidad de comprometerse con empresas que trasciendan la propia vida.',
+    caract: [
+      'Se conforma la personalidad que gestamos a partir de los 56 años.',
+      'El impulso del tercer ciclo de la vida se estabiliza y adquiere formas concretas.',
+      'Nuevo diseño del hogar y del clan familiar.',
+      'Plenitud y madurez en la creatividad personal.',
+      'Se plasma el aporte singular de nuestra vida en el mundo.',
+      'Despliegue de la vocación con visiones trascendentes de la propia existencia.',
+      'Los sentidos filosóficos o espirituales se expresan en las acciones cotidianas.',
+      'Gran necesidad de comprometerse en empresas que trasciendan la propia vida.',
+      'Disposición a realizar viajes y a explorar el conocimiento: esta etapa estimula a conocer el mundo.',
+      'La sensibilidad se activa a través de expresiones artísticas, con gran compromiso hacia esas iniciativas.',
+      'Expresión madura de potencia y contundencia en el hacer.'
+    ],
+    claves: [
+      'Tiempo de cosechar toda la creatividad generada: reconocimientos, jubilación, nietos y disfrute de la familia; el valor del espíritu toma mayor protagonismo.',
+      'Libres de las expectativas propias y ajenas, podemos expresar nuestros pensamientos sin pudor y ver aspectos de la experiencia humana invisibles para los más jóvenes.',
+      'A partir de aquí parece dividirnos en dos grandes grupos: "los muertos en vida" o quienes aprovechan la máxima conciencia de la vida.',
+      'La jubilación permite soltar compromisos: es tiempo de descubrir cuán ingeniosos somos para superar las formalidades y animarnos a una vida más auténtica.',
+      'Eximidos del esfuerzo de construir una vida de logros, podemos vivir como nunca en el presente: tenemos la edad suficiente para no postergar nada.',
+      'Siete años regidos por planetas invisibles que invitan a vivir sin moldes sociales: superar los estereotipos del "abuelo" o el "jubilado".',
+      'Sin la presión de compararnos con otros brotan capacidades artísticas o musicales hasta ahora desconocidas.',
+      'Umbral de los 69: aquí se abre el último tramo del camino. Lo que sigue —70-77, 77-84 y más allá— es desenlace y legado.'
+    ],
+    hitos: ['63 años: segundo portal transpersonal', '69 años: umbral del último tramo; se entra en el territorio del legado', '70 años: mitad del tercer círculo de 28 años, nuevo giro de conciencia'],
+    retos: ['Apego al lugar de mando y dolor por cederlo', 'Depender en exceso de los hijos para decidir', 'Ocupar el tiempo sólo para "pasarlo"'],
+    practicas: ['Elegir un proyecto que pueda quedar después de mí', 'Viajar o estudiar algo que quedó pendiente', 'Escribir lo aprendido para alguien concreto', 'Practicar un arte, aunque nadie lo vea'],
+    lens: [
+      'Definir el aporte singular que quiero dejar.',
+      'Perdonar y agradecer: cerrar cuentas del corazón.',
+      'Estudiar, viajar y leer con tiempo disponible.',
+      'Cuidar vínculos elegidos y ampliar el círculo.',
+      'Moverse dentro de los límites reales del cuerpo.',
+      'Animarse a una forma nueva de expresión.',
+      'Simplificar: menos cosas, más presencia.'
+    ],
+    afirmacion: 'Lo que hago ahora puede seguir viviendo en otros.'
+  },
+  {
+    n: 11, rango: '70 – 77', nombre: 'La trama del misterio', regente: 'Plutón', glifo: '♇', est: 3,
+    subtitulo: 'Tercer portal transpersonal · la plenitud de la conciencia',
+    esencia: 'Como ocurrió a los 14 y a los 42, los 70 marcan una nueva mitad de camino: se afirma la aceptación de estar recorriendo el círculo final de la vida.',
+    identidad: 'Se despliega, evalúa y balancea la Tercera Estructura de la Personalidad; la creatividad propia se entrega a la red humana.',
+    social: 'Tiempo de formar sucesores o discípulos; se corre el riesgo de aislarse o la oportunidad de recrearse socialmente junto a otros.',
+    emocional: 'Se produce un repliegue de la potencia hacia la experiencia interna, un giro introspectivo hacia el misterio y un despertar a la profundidad compasiva.',
+    caract: [
+      'Despliegue, evaluación y balance de la Tercera Estructura de la Personalidad.',
+      'Conciencia de la realidad emocional y de la experiencia de vida iniciada hacia los 56 años.',
+      'Transformación de la realidad en los vínculos: periodo de pérdidas y revitalizaciones.',
+      'Riesgo de aislamiento o, en cambio, oportunidad de recrearse socialmente junto a otros.',
+      'Tiempo de decisiones, ajustes y adaptaciones personales al último tramo de la vida.',
+      'Conciencia del legado y la herencia: formación de sucesores o discípulos.',
+      'Entrega de la propia creatividad a la red humana.',
+      'Sensación de libertad y permiso de exploración creativa sin especulaciones.',
+      'Repliegue de la potencia hacia la experiencia interna.',
+      'Nuevo significado del vínculo con el cuerpo.',
+      'Giro introspectivo de la sensibilidad hacia el misterio de la vida.',
+      'Despertar a la profundidad compasiva y sentido renovado del servicio a la humanidad.'
+    ],
+    claves: [
+      'Septenio regido por planetas no visibles que invitan a conectar con el misterio sin moldes sociales: habrá que escribir nuevos espacios para una edad que la sociedad suele insultar o desvalorizar.',
+      'Si sólo elegimos entretenernos y "pasar el tiempo", seguimos regalando la vida a los moldes carentes de vitalidad; creer que ya está todo vivido conduce al vacío y a la tristeza.',
+      'Llegar a los 70 invita a un balance: si sentimos mucha vida no vivida, podemos quedar dando vueltas alrededor del pasado. Hay que resignificar y curar la propia historia.',
+      'El desafío es descubrir quién nos habita más allá de cuánto rendimos o cuán útiles somos a la sociedad.',
+      'Los otros se vuelven fundamentales: habrá que entregar responsabilidades a socios más jóvenes o a los hijos, o bien empezar a depender en exceso de ellos.',
+      'Hay que aprender a retirarse y dejar lo propio en manos de otros, que lo reciclarán con renovada creatividad: quien no sabe retirarse a tiempo puede destruir su propia obra.',
+      'Es un tiempo de distribuir lo creado y dejar discípulos: expresarnos a través de los otros.',
+      'A los 70 aún tenemos mucho para dar: cultivar amistades nuevas y viejas evita encerrarnos en la familia y cargar a los hijos con un peso excesivo.'
+    ],
+    hitos: ['70 años: nuevo giro de conciencia, mitad del tercer círculo', '74 años: cuarto nodo lunar; reorientación y decisiones de rumbo', '77 años: apertura del cuarto portal'],
+    retos: ['Aislamiento y sensación de no ser escuchado', 'No saber retirarse ni delegar', 'Rencores o frustraciones que siguen ocupando el presente'],
+    practicas: ['Nombrar a un sucesor y enseñarle lo esencial', 'Cultivar una amistad nueva este año', 'Escribir cartas o memorias para quienes vienen', 'Practicar gratitud y perdón como ejercicio diario'],
+    lens: [
+      'Decidir el legado: qué, a quién y cuándo.',
+      'Revisar el pasado con compasión, no con juicio.',
+      'Contar lo aprendido: grabar, escribir, enseñar.',
+      'Cuidar amistades y comunidad más allá de la familia.',
+      'Honrar el cuerpo que sostiene la conciencia.',
+      'Permitirse una exploración creativa sin meta.',
+      'Practicar el desapego de a poco, sin apuro.'
+    ],
+    afirmacion: 'Mi vida tiene sentido y lo que sembré sigue en otros.'
+  },
+  {
+    n: 12, rango: '77 – 84', nombre: 'Recapitulación y libertad', regente: 'Urano (retorno)', glifo: '♅', est: 3,
+    subtitulo: 'Cuarto portal transpersonal · retiro, desnudez y libertad',
+    esencia: 'Se completa el ciclo de Urano: 84 años para dar una vuelta alrededor del Sol. La originalidad y la creatividad de la vida se revelan como un hecho consumado.',
+    identidad: 'Desnudez existencial: al caer la importancia de la imagen personal, aparece una espontaneidad expresiva máxima.',
+    social: 'Limpieza y despeje del camino para los sucesores; conciencia de "mi vida sin mí".',
+    emocional: 'Desprendimiento y trascendencia, o bien apego y miedo a la muerte: la muerte aparece como liberadora de compromisos.',
+    caract: [
+      'Estado de conciencia del retiro y del final.',
+      'Revisión, reconciliación y balance con relación al pasado.',
+      'Contacto con lo esencial de la vida.',
+      'Desnudez existencial, que implica una posibilidad de máxima espontaneidad expresiva.',
+      'Desprendimiento y trascendencia hacia, o bien apego y miedo a la muerte.',
+      'La muerte aparece como liberadora de compromisos y habilitadora de una nueva vida.',
+      'Agotamiento de la vitalidad física y disposición reflexiva y meditativa.',
+      'Nos percibimos de otro tiempo: mirada revolucionaria o sensación de exilio.',
+      'Limpieza y despeje del camino para los sucesores.',
+      'Conciencia de "mi vida sin mí".',
+      'Conexión con el misterio.'
+    ],
+    claves: [
+      'Oportunidad —si aún no lo logramos— de trascender la extrema importancia que le dábamos al cuerpo y a la personalidad.',
+      'El septenio culmina a los 84, coincidiendo con la órbita de Urano: la vida expresa su máxima creatividad cuando la conciencia individual culmina su recorrido.',
+      'Se nos pide la tarea más ardua: desprendernos de nuestra personalidad, de las posesiones, la salud y las relaciones. Practicar el desapego para partir livianos.',
+      'Dejar distribuida la herencia en vida es el mejor acto de amor para despedirnos de nuestros sucesores.',
+      'Periodo que permite transitar y adquirir una nueva forma de estar en conciencia.',
+      'Más que nunca será necesario reconciliarse con el pasado: si estamos heridos, nos seguiremos perdiendo en el presente. Perdonar libera.',
+      'Una buena forma de cerrar la existencia es el sentimiento de "bien valdría volver a repetir mi vida": quien puede recordarla con gratitud se siente satisfecho.',
+      'A esta edad estamos más cerca de lo eterno: se facilita perdonar y perdonarnos, y se relativizan los conflictos mundanos.'
+    ],
+    hitos: ['77 años: cuarto portal transpersonal', '84 años: retorno de Urano; la vuelta completa', 'Distribuir la herencia en vida como acto de amor'],
+    retos: ['Miedo a la muerte que se vuelve el centro de todo', 'Rigidez: "todo tiempo pasado fue mejor"', 'Dependencia total sin espacios de decisión propia'],
+    practicas: ['Ordenar papeles, bienes y voluntades con calma', 'Contar la propia historia a quien quiera escucharla', 'Practicar el agradecimiento cada día', 'Despedirse a tiempo, con palabras dichas'],
+    lens: [
+      'Cerrar con palabras: decir lo que falta decir.',
+      'Agradecer la vida tal como fue.',
+      'Dejar el testamento material y el emocional.',
+      'Recibir visitas y compañía sin exigencias.',
+      'Cuidar el cuerpo con ternura, no con exigencia.',
+      'Permitirse una última exploración interior.',
+      'Soltar: partir liviano es un acto de amor.'
+    ],
+    afirmacion: 'Puedo soltar lo que fui; lo esencial no se pierde.'
+  },
+  {
+    n: 13, rango: '84 +', nombre: 'Bonus track existencial', regente: 'Retorno de Urano', glifo: '✧', est: 4,
+    subtitulo: 'El tiempo inédito · el arte del buen morir',
+    esencia: 'Superar los 84 abre un bonus track existencial: varios años más en aceptables condiciones físicas, con plenitud de conciencia y gran libertad de discernimiento.',
+    identidad: 'Nunca antes habíamos tenido una intimidad tan profunda con el misterio de la vida; la muerte deja de ser teoría y se vuelve constatación.',
+    social: 'Sensación de retorno a la gran familia humana: muchos de los seres importantes ya murieron y su energía amorosa acompaña este trance.',
+    emocional: 'El miedo a morir puede ceder a favor de una aceptación serena; el pudor de hablar de la muerte se disuelve.',
+    caract: [
+      'Contacto inédito con el misterio de la vida, sostenido en la experiencia acumulada.',
+      'La revelación de la muerte como portal deja de ser especulación y se vuelve una constatación cotidiana.',
+      'Sensación de volver al origen, de retorno al hogar y de reunión con quienes nos precedieron.',
+      'La energía amorosa de los que ya murieron cobra presencia y acompaña.',
+      'El miedo a morir cede a favor de una aceptación serena.',
+      'Se disuelve el pudor de referirse a la muerte: florece el arte del buen morir.',
+      'Quien acompaña con conciencia su propio proceso se vuelve un agente revelador para los demás.',
+      'Plenitud de conciencia y gran libertad de discernimiento.'
+    ],
+    claves: [
+      'Comienza a ser común superar los 84 y disfrutar de un tiempo extra en aceptables condiciones de salud física.',
+      'La vivencia atesorada y la revelación de la muerte como portal se vuelven experiencia concreta y sensorial.',
+      'Es probable que muchas personas importantes de nuestra vida ya hayan muerto: sentir su presencia amorosa es parte del trance.',
+      'El miedo a morir puede ceder ante una aceptación serena y un contacto espontáneo con la vivencia.',
+      'Acompañar con conciencia el propio proceso transforma los valores, los miedos y los prejuicios de quienes rodean.',
+      'Alice Bailey lo formuló así: "A lo que la mente llama muerte, el alma llama vida".',
+      'Este tramo no está en los libros antiguos: lo estamos escribiendo ahora, como especie y como familias.'
+    ],
+    hitos: ['84 años: retorno de Urano', 'Cada año adicional es territorio nuevo: documentar lo vivido aquí también importa'],
+    retos: ['Soledad no elegida y duelos acumulados', 'Dependencia sin espacios de autonomía', 'Dolor o enfermedad sin alivio adecuado'],
+    practicas: ['Conversar sobre la muerte sin solemnidad ni miedo', 'Dejar escritas o grabadas las historias de familia', 'Agradecer cada día algo concreto', 'Recibir y dar compañía, aunque sea en silencio'],
+    lens: [
+      'Decir lo esencial mientras se pueda decir.',
+      'Agradecer: la vida recordada con gratitud sostiene.',
+      'Transmitir: una historia, una receta, un consejo.',
+      'Acompañar y dejarse acompañar.',
+      'Cuidar el cuerpo con dignidad y sin heroísmos.',
+      'Permanecer curioso hasta el final.',
+      'Soltar en paz: partir liviano también es legado.'
+    ],
+    afirmacion: 'Vale la pena haber vivido esta vida.'
+  }
+];
+
+/* ------------------ 3. CICLOS DE 52 DÍAS (astrología védica) ------------------ */
+const CICLOS = [
+  { n: 1, regente: 'Sol', alt: 'Surya', glifo: '☉', palabra: 'Voluntad', color: '#f5c56b',
+    influencia: 'Rige la voluntad, la vitalidad y la capacidad de acción organizada y responsable. Es la etapa principal para sentar las bases del nuevo año de vida.',
+    recom: ['Iniciar proyectos pendientes, negocios o nuevas actividades: es el mejor ciclo para los comienzos', 'Tomar riesgos calculados', 'Buscar favores, ayuda o reconocimiento de personas con autoridad', 'Consolidar tu imagen, prestigio y personalidad', 'Las relaciones que empiezan aquí tienden a ser duraderas'],
+    evitar: 'Cuidar el orgullo y la necesidad de aprobación.',
+    pregunta: '¿Qué quiero poner en marcha este año?' },
+  { n: 2, regente: 'Luna', alt: 'Baladeva', glifo: '☽', palabra: 'Sensibilidad', color: '#9fb8ff',
+    influencia: 'El período más emocional, sensible y perceptivo: invita a la introspección. La intuición es fructífera y la memoria se fortalece.',
+    recom: ['Cambios rápidos y de corta duración: mudanzas, cambios de empleo', 'Concretar planes que empiecen y terminen dentro del mismo ciclo', 'Escribir y crear con la imaginación a favor', 'Iniciar sociedades, bodas o uniones de pareja', 'Trabajos freelance o de ciclo corto'],
+    evitar: 'Evitar decisiones impulsivas y firmar obligaciones que comprometan tu patrimonio.',
+    pregunta: '¿Qué necesita hoy mi mundo emocional?' },
+  { n: 3, regente: 'Mercurio', alt: 'Budha', glifo: '☿', palabra: 'Comunicación', color: '#5fe3bf',
+    influencia: 'Centrado en la comunicación (verbal y escrita), las ideas y el razonamiento. La mente está despierta, ágil y con gran claridad.',
+    recom: ['Estudiar, investigar y aprender', 'Relacionarte con personas que aporten conocimiento', 'Hablar en público, dar clases o planear conferencias', 'Revisar detalles, lógica y nuevos conocimientos', 'Adquirir medios de transporte'],
+    evitar: 'No es buen momento para firmar convenios a largo plazo.',
+    pregunta: '¿Qué necesito aprender o decir con claridad?' },
+  { n: 4, regente: 'Venus', alt: 'Krishna', glifo: '♀', palabra: 'Armonía', color: '#ff86a8',
+    influencia: 'Reina la armonía, el equilibrio, la belleza y el goce. La vida social cobra mayor relevancia.',
+    recom: ['Embellecerte, cuidar el cuerpo, arte y teatro', 'Activar la vida social: fiestas, reuniones, nuevas amistades', 'Tratar con personas o negocios de arte, belleza, joyería, perfumes', 'Reconciliarte con quien hubo conflictos', 'Resolver asuntos enredados; adoptar una mascota'],
+    evitar: 'La indecisión puede llevar a resultados desfavorables.',
+    pregunta: '¿Qué vínculo merece más cuidado ahora?' },
+  { n: 5, regente: 'Marte', alt: 'Kalki', glifo: '♂', palabra: 'Acción', color: '#ff9a6b',
+    influencia: 'Período de energía, acción y voluntad fortalecida. La mente está clara y receptiva.',
+    recom: ['Deporte, actividades competitivas, estudio intensivo', 'Eliminar lo inútil para dar espacio a la expansión del próximo ciclo', 'Enfrentar obstáculos con esfuerzo físico y mental', 'Aprender idiomas o conocimientos nuevos', 'Los planes de salud pueden dar excelentes resultados'],
+    evitar: 'Evita discusiones sin provecho; canaliza la energía con ejercicio para no frustrarte.',
+    pregunta: '¿Qué obstáculo voy a enfrentar de frente?' },
+  { n: 6, regente: 'Júpiter', alt: 'Vishnu', glifo: '♃', palabra: 'Expansión', color: '#c9a7ff',
+    influencia: 'Período de profunda expansión y buena suerte, ligado al optimismo. Las actividades se expanden y los proyectos definidos crecen.',
+    recom: ['Compromisos formales: casarse, rehacer la vida sentimental, tener hijos', 'Resolver asuntos familiares, testamentos y propiedades', 'Revisar y reafirmar tus creencias personales', 'Viajes largos o al extranjero; estudios superiores', 'Es el momento de la siembra: en el ciclo siguiente se cosecha'],
+    evitar: 'Evita el sobregasto, los préstamos innecesarios y los socios que no necesitas.',
+    pregunta: '¿Qué quiero que crezca en los próximos meses?' },
+  { n: 7, regente: 'Saturno', alt: 'Damodar', glifo: '♄', palabra: 'Cierre', color: '#8b9bb5',
+    influencia: 'El ciclo más crítico y delicado: marca la conclusión de proyectos iniciados antes. Las actividades pueden retrasarse o retroceder y el uso del tiempo es decisivo.',
+    recom: ['Introspección para proyectar y analizar planes no cumplidos', 'No empezar nada nuevo', 'Analizar muy detenidamente antes de decidir', 'Limpieza interna: eliminar lo negativo y lo que ya no funciona', 'Cosechar lo sembrado en el ciclo del Sol'],
+    evitar: 'Es el tramo con más accidentes, malentendidos y agotamiento. Evita cirugías y tratamientos importantes, nuevas mascotas y compromisos nuevos.',
+    pregunta: '¿Qué debo cerrar, soltar o agradecer antes de mi nuevo año?' }
+];
+
+/* ------------------ 4. MENTE Y CREATIVIDAD DESPUÉS DE LOS 60 ------------------ */
+const EVIDENCIA = [
+  {
+    t: 'Tu conocimiento sigue creciendo',
+    d: 'La inteligencia cristalizada —vocabulario, conocimientos, criterio— continúa en aumento mientras la inteligencia fluida (velocidad de procesamiento, memoria de trabajo) declina desde los 20.',
+    f: 'Cattell y Horn; Hartshorne y Germine (2015, Psychological Science), con decenas de miles de personas, situaron el punto más alto del vocabulario entre los 60 y los 70 años.'
+  },
+  {
+    t: 'El cerebro se vuelve más integrador',
+    d: 'Con la edad, el cerebro tiende a reclutar ambos hemisferios para la misma tarea. Esa bilateralidad favorece la síntesis, la visión de conjunto y la conexión entre ideas lejanas.',
+    f: 'Modelo HAROLD (Cabeza, 2002, Psychology and Aging): reducción de la asimetría hemisférica en adultos mayores.'
+  },
+  {
+    t: 'Se regula mejor la emoción',
+    d: 'Al percibir el tiempo como más limitado, se prioriza lo que importa: baja la reactividad, crece la estabilidad y mejora la resolución de conflictos.',
+    f: 'Teoría de la selectividad socioemocional (Carstensen, Stanford) y el "efecto de positividad" documentado en la memoria emocional.'
+  },
+  {
+    t: 'La sabiduría se puede medir',
+    d: 'Frente a dilemas interpersonales, los adultos mayores reconocen mejor los límites del propio conocimiento, consideran más perspectivas y buscan más la resolución que la victoria.',
+    f: 'Grossmann et al. (2010, PNAS), "Reasoning about social conflicts improves into old age".'
+  },
+  {
+    t: 'La pericia se acumula',
+    d: 'El rendimiento experto depende de práctica deliberada acumulada durante años. Oficio, reconocimiento de patrones y criterio siguen subiendo cuando la velocidad ya bajó.',
+    f: 'K. Anders Ericsson y la investigación sobre pericia; la experiencia es un activo, no un residuo.'
+  },
+  {
+    t: 'Existen los "superagers"',
+    d: 'Personas de más de 80 años con memoria al nivel de quienes tienen 50-65: corteza más gruesa y mayor densidad de neuronas von Economo en la ínsula anterior.',
+    f: 'Northwestern SuperAging Project (Mesulam Center; Rogalski, Gefen y cols.).'
+  },
+  {
+    t: 'La reserva cognitiva protege',
+    d: 'Años de educación, lectura, trabajo complejo, vida social y ejercicio sostienen el rendimiento aunque aparezcan cambios cerebrales propios de la edad.',
+    f: 'Modelo de reserva cognitiva de Yaakov Stern (Columbia).'
+  },
+  {
+    t: 'El matiz honesto',
+    d: 'En ciencias duras el pico de grandes descubrimientos sigue concentrándose antes de los 50, aunque viene subiendo. En literatura, filosofía, artes visuales e interpretación el mejor momento suele llegar más tarde.',
+    f: 'Jones y Weinberg ("Age and Scientific Genius"); Lehman, "Age and Achievement" (1953); Simonton, curvas de productividad creativa y "canto del cisne".'
+  },
+  {
+    t: 'Dos tipos de creatividad',
+    d: 'La creatividad fluida (generar muchas opciones nuevas y rápidas) favorece a los jóvenes. La creatividad de síntesis (elegir lo relevante, conectar lo vivido, dar forma) favorece a las trayectorias largas.',
+    f: 'Distinción clásica entre pensamiento divergente y creatividad de síntesis en la psicología de la creatividad.'
+  }
+];
+
+const CAMPOS = ['Artes visuales', 'Música', 'Literatura y pensamiento', 'Ciencia', 'Vida pública'];
+
+const FIGURAS = [
+  { n: 'Grandma Moses (Anna Mary Robertson)', e: 78, c: 'Artes visuales', o: 'Empezó a pintar a los 76 y tuvo su primera exposiciónindividual en Nueva York a los 78; pintó hasta pasados los 100.' },
+  { n: 'Mary Delany', e: 72, c: 'Artes visuales', o: 'Inició sus "mosaicos de papel" botánicos a los 72 y completó 985 piezas hasta los 88.' },
+  { n: 'Katsushika Hokusai', e: 73, c: 'Artes visuales', o: 'Dijo que a los 73 empezó a comprender la estructura de los seres vivos; hizo "Cien vistas del monte Fuji" en sus 70.' },
+  { n: 'Frank Lloyd Wright', e: 69, c: 'Artes visuales', o: 'Proyectó la Casa de la Cascada (Fallingwater) a los 67-69 y trabajó en el Museo Guggenheim hasta los 91.' },
+  { n: 'Miguel Ángel', e: 72, c: 'Artes visuales', o: 'Asumió la dirección de la basílica de San Pedro y diseñó su cúpula; siguió trabajando hasta los 88.' },
+  { n: 'Tiziano', e: 80, c: 'Artes visuales', o: 'Continuó pintando encargos mayores hasta su muerte, cerca de los 88.' },
+  { n: 'Claude Monet', e: 66, c: 'Artes visuales', o: 'Emprendió las grandes "Ninfeas"; operado de cataratas a los 82, volvió a pintar con otra mirada.' },
+  { n: 'Henri Matisse', e: 78, c: 'Artes visuales', o: 'Creó los papeles recortados y el libro "Jazz" desde una silla de ruedas.' },
+  { n: 'Pablo Picasso', e: 86, c: 'Artes visuales', o: 'Produjo 347 grabados en pocos meses, en 1968.' },
+  { n: 'Louise Bourgeois', e: 71, c: 'Artes visuales', o: 'Gran retrospectiva en el MoMA a los 71; creó "Maman" a los 88.' },
+  { n: 'Carmen Herrera', e: 89, c: 'Artes visuales', o: 'Vendió su primer cuadro a los 89 y alcanzó reconocimiento internacional pasados los 95.' },
+  { n: 'Francisco de Goya', e: 73, c: 'Artes visuales', o: 'Pintó las Pinturas negras a los 73-77 y, ya en Burdeos a los 79, aprendió litografía.' },
+  { n: 'Giuseppe Verdi', e: 74, c: 'Música', o: '"Otello" a los 74 y "Falstaff" a los 79, cumbre tardía de la ópera.' },
+  { n: 'Joseph Haydn', e: 66, c: 'Música', o: '"La creación" a los 66 y "Las estaciones" a los 69, sus grandes oratorios.' },
+  { n: 'Igor Stravinsky', e: 84, c: 'Música', o: 'Compuso "Requiem Canticles" a los 84.' },
+  { n: 'Pablo Casals', e: 80, c: 'Música', o: 'Clases magistrales y conciertos pasados los 90; formó a varias generaciones.' },
+  { n: 'Arthur Rubinstein', e: 89, c: 'Música', o: 'Ofreció su último concierto público en Londres a los 89.' },
+  { n: 'Goethe', e: 82, c: 'Literatura y pensamiento', o: 'Terminó "Fausto II" poco antes de morir: lo publicó póstumo.' },
+  { n: 'León Tolstói', e: 71, c: 'Literatura y pensamiento', o: '"Resurrección" a los 71; "Hadji Murat", escrita entre los 68 y los 76.' },
+  { n: 'Laura Ingalls Wilder', e: 65, c: 'Literatura y pensamiento', o: 'Publicó "La casita en el bosque" a los 65 y nació la serie "La casa de la pradera".' },
+  { n: 'Frank McCourt', e: 66, c: 'Literatura y pensamiento', o: '"Las cenizas de Ángela" a los 66; Pulitzer al año siguiente.' },
+  { n: 'Harry Bernstein', e: 96, c: 'Literatura y pensamiento', o: 'Publicó "El muro invisible", su primera novela, a los 96.' },
+  { n: 'Bertrand Russell', e: 73, c: 'Literatura y pensamiento', o: '"Historia de la filosofía occidental" a los 73; Nobel de Literatura a los 78.' },
+  { n: 'Immanuel Kant', e: 69, c: 'Literatura y pensamiento', o: '"La religión dentro de los límites de la mera razón" (69), "La paz perpetua" (71) y "La metafísica de las costumbres" (73).' },
+  { n: 'Mario Vargas Llosa', e: 83, c: 'Literatura y pensamiento', o: 'Nobel a los 74; publicó "Tiempos recios" a los 83 y una nueva novela a los 87.' },
+  { n: 'José Saramago', e: 76, c: 'Literatura y pensamiento', o: 'Nobel de Literatura a los 76; "Las intermitencias de la muerte" a los 83.' },
+  { n: 'Benito Pérez Galdós', e: 70, c: 'Literatura y pensamiento', o: 'Última serie de los "Episodios nacionales", dictada casi ciego.' },
+  { n: 'Sófocles', e: 90, c: 'Literatura y pensamiento', o: '"Edipo en Colono", estrenada póstumamente; la tradición cuenta que la leyó ante un tribunal que lo acusaba de incapacidad.' },
+  { n: 'Platón', e: 74, c: 'Literatura y pensamiento', o: '"Las Leyes", su obra más extensa, escrita después de los 70.' },
+  { n: 'Catón el Viejo', e: 80, c: 'Literatura y pensamiento', o: 'Aprendió griego pasados los 80 (Cicerón, "Sobre la vejez").' },
+  { n: 'Galileo Galilei', e: 74, c: 'Ciencia', o: '"Discursos sobre dos nuevas ciencias" (1638), escrito ciego y bajo arresto domiciliario.' },
+  { n: 'Isaac Newton', e: 70, c: 'Ciencia', o: 'Segunda edición de los "Principia" a los 70; "Cronología de los reinos antiguos", publicada póstuma.' },
+  { n: 'Charles Darwin', e: 72, c: 'Ciencia', o: '"La formación del moho vegetal por la acción de las lombrices", su último libro científico.' },
+  { n: 'John Goodenough', e: 97, c: 'Ciencia', o: 'Nobel de Química 2019 por la batería de ion-litio; seguía investigando baterías de estado sólido.' },
+  { n: 'Rita Levi-Montalcini', e: 77, c: 'Ciencia', o: 'Nobel de Medicina a los 77; activa en investigación y política científica hasta pasados los 100.' },
+  { n: 'Peter Mark Roget', e: 73, c: 'Ciencia', o: 'Publicó en 1852 el primer Tesauro de sinónimos en inglés.' },
+  { n: 'Noah Webster', e: 70, c: 'Ciencia', o: '"American Dictionary of the English Language" (1828), base del inglés de Estados Unidos.' },
+  { n: 'Ramón Menéndez Pidal', e: 80, c: 'Ciencia', o: 'Siguió publicando estudios de filología hispánica pasados los 90.' },
+  { n: 'Benjamin Franklin', e: 81, c: 'Vida pública', o: 'Inventó los lentes bifocales en sus 70 y ayudó a redactar la Constitución de EE. UU. a los 81.' },
+  { n: 'Winston Churchill', e: 65, c: 'Vida pública', o: 'Primer ministro a los 65; escribió su gran historia y recibió el Nobel de Literatura a los 79.' },
+  { n: 'Harland Sanders', e: 62, c: 'Vida pública', o: 'Empezó a franquiciar Kentucky Fried Chicken a los 62 y construyó la marca en sus 70.' },
+  { n: 'John Glenn', e: 77, c: 'Vida pública', o: 'Volvió al espacio en 1998, a los 77 años.' }
+];
+
+const PRACTICAS60 = [
+  'Elegí un proyecto que pueda sobrevivirte: escribir, enseñar, documentar, sembrar, ordenar un archivo familiar.',
+  'Practicá a diario en lugar de esperar inspiración: la constancia sostiene la pericia más que el talento.',
+  'Aprendé algo incómodo y nuevo (un idioma, un instrumento, una herramienta digital): la novedad crea conexiones.',
+  'Trabajá con personas más jóvenes: la colaboración intergeneracional es una de las mejores escuelas que existen.',
+  'Cuidá el cuerpo que sostiene la mente: sueño, caminata diaria, fuerza muscular, audición y presión arterial controladas.',
+  'Entregá lo que sabés: mentoría, oficios, voluntariado, relatos grabados para los que vienen.',
+  'Protegé tu tiempo: menos obligaciones y más profundidad. La agenda también es una decisión sobre la propia vida.'
+];
+
+const AREAS = ['Relaciones', 'Carrera', 'Salud', 'Espiritualidad', 'Familia', 'Creatividad'];
+
+const GLOSARIO = [
+  ['Septenio', 'Período de siete años con una tarea de desarrollo propia (Steiner, 1907; Leveratto). Es un instrumento para observar el propio proceso, no una regla rígida.'],
+  ['Estructura de la personalidad', 'La manera en que se organiza nuestra identidad. El libro describe tres: la del clan (0-28), la del mundo (28-42) y la del mundo espiritual (56-84).'],
+  ['Portales transpersonales', 'Los cuatro septenios que van de los 56 a los 84. Resuenan con Urano (libertad creativa), Neptuno (empatía universal) y Plutón (potencia transformadora).'],
+  ['Regente del septenio', 'Símbolo que describe la calidad de la etapa: Luna (nutrición), Mercurio (aprendizaje), Venus (amor y estética), Sol (identidad), Marte (conquista), Júpiter (consolidación), Saturno (reorientación), Quirón (la herida que cura).'],
+  ['Ciclo de 52 días', 'División védica del año personal en siete tramos de 52 días (7 × 52 = 364) que arrancan el día del cumpleaños, cada uno con un regente planetario.'],
+  ['Año personal', 'El año que va de cumpleaños a cumpleaños. Por eso tus ciclos de 52 días no coinciden con el calendario civil.'],
+  ['Retorno de Saturno', 'Hito simbólico alrededor de los 28-29, de nuevo a los 58-60 y otra vez cerca de los 87: realismo, estructura y responsabilidad.'],
+  ['Oposición de Urano', 'Hacia los 42 años: invitación clásica a replantear la autenticidad y liberar cambios postergados.'],
+  ['Retorno de Urano', 'A los 84 años: la vuelta completa del planeta que simboliza la originalidad. Coincide con el cierre del ciclo descrito por el libro.'],
+  ['Nodo lunar', 'Puntos sensibles del ciclo (~18,5, ~37, ~55,5 y ~74 años) asociados a confusión, reorientación y decisiones de rumbo.'],
+  ['Edad crística', 'Hacia los 33 años: "morir a algo para nacer a algo"; los mecanismos de defensa ceden y queda lo esencial.'],
+  ['Crisis de los 49', 'La Pirámide de la Personalidad: plenitud de la estructura formal y, al mismo tiempo, contacto con la herida propia (Quirón).'],
+  ['Inteligencia cristalizada', 'Conocimiento, vocabulario y criterio acumulados. Sigue creciendo hasta los 60-70, mientras la velocidad de procesamiento declina.'],
+  ['Inteligencia fluida', 'Capacidad de resolver problemas nuevos y rápidos. Alcanza su punto más alto en la juventud y declina después.'],
+  ['Reserva cognitiva', 'Educación, lectura, trabajo complejo y vida social acumulados: sostienen el rendimiento aunque haya cambios cerebrales propios de la edad.'],
+  ['Superager', 'Persona de más de 80 años con memoria al nivel de quienes tienen 50-65. Estudiado por el Northwestern SuperAging Project.'],
+  ['Astrología psicológica', 'Enfoque que integra el simbolismo astrológico con la psicología (Jung: arquetipos, sincronicidad, individuación) para favorecer la autoconciencia.'],
+  ['Zeitgeber', 'Sincronizador de ritmos biológicos (luz, horarios, rutinas). Explica por qué la regularidad estabiliza el ánimo.']
+];
+
+const FUENTES = [
+  'Beatriz Leveratto, "Cada siete años. La vida y sus estaciones astrológicas" (prólogo de Florencia Bonelli): los 12 septenios, las tres estructuras de la personalidad y los planetas que los rigen.',
+  'Rudolf Steiner, "La educación del niño a la luz de la ciencia espiritual" (1907): septenios, fases corporal, anímica y espiritual.',
+  'Carl G. Jung: psicología analítica, arquetipos, sincronicidad e individuación; base de la astrología psicológica.',
+  'Astrología védica: los siete ciclos anuales de 52 días y sus regentes planetarios.',
+  'Hartshorne y Germine (2015), Psychological Science: "When does cognitive functioning peak?" — distintas capacidades alcanzan su punto máximo a edades distintas; el vocabulario, entre los 60 y los 70.',
+  'Cabeza (2002), Psychology and Aging: modelo HAROLD, reducción de la asimetría hemisférica en el cerebro que envejece.',
+  'Carstensen (Stanford): teoría de la selectividad socioemocional y efecto de positividad.',
+  'Grossmann et al. (2010), PNAS: el razonamiento sobre conflictos sociales mejora con la edad.',
+  'Northwestern SuperAging Project (Mesulam Center; Rogalski, Gefen y cols.): cerebro de los "superagers".',
+  'Stern (Columbia): modelo de reserva cognitiva. Ericsson: práctica deliberada y pericia.',
+  'Jones y Weinberg: "Age and Scientific Genius"; Lehman, "Age and Achievement" (1953); Simonton: curvas de productividad creativa y "canto del cisne".',
+  'Documentos de estudio aportados por el usuario: "Septenios y 7 ciclos anuales" y "Cada siete años".'
+];
+
+/* ------------------------ 5. UTILIDADES ------------------------ */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+const fmt = d => d.getDate() + ' de ' + MESES[d.getMonth()] + ' de ' + d.getFullYear();
+const fmtC = d => d.getDate() + ' ' + MESES[d.getMonth()].slice(0, 3) + '.';
+
+function toast(msg, ok = true) {
+  const t = $('#toast'); if (!t) return;
+  t.textContent = msg; t.style.borderColor = ok ? 'rgba(95,227,191,.45)' : 'rgba(255,122,122,.5)';
+  t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2800);
+}
+function safe(fn, label) {
+  return function () {
+    try { return fn.apply(this, arguments); }
+    catch (err) { console.error(label, err); toast((label ? label + ': ' : '') + (err && err.message ? err.message : err), false); }
+  };
+}
+
+/* ------------------------ 6. FECHAS Y CÁLCULOS ------------------------ */
+const isLeap = y => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+const parseISO = s => { const p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); };
+const toISO = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+const addDays = (d, n) => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() + n); return x; };
+function addYears(d, n) { let dd = d.getDate(); if (d.getMonth() === 1 && dd === 29 && !isLeap(d.getFullYear() + n)) dd = 28; return new Date(d.getFullYear() + n, d.getMonth(), dd); }
+function daysBetween(a, b) { return Math.round((Date.UTC(b.getFullYear(), b.getMonth(), b.getDate()) - Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())) / 86400000); }
+function aniv(birth, y) { let m = birth.getMonth(), d = birth.getDate(); if (m === 1 && d === 29 && !isLeap(y)) d = 28; return new Date(y, m, d); }
+function ultimoCumple(b, hoy) { let c = aniv(b, hoy.getFullYear()); return c > hoy ? aniv(b, hoy.getFullYear() - 1) : c; }
+function proximoCumple(b, hoy) { let c = aniv(b, hoy.getFullYear()); return daysBetween(hoy, c) <= 0 ? aniv(b, hoy.getFullYear() + 1) : c; }
+function edad(b, hoy) {
+  let y = hoy.getFullYear() - b.getFullYear(), m = hoy.getMonth() - b.getMonth(), d = hoy.getDate() - b.getDate();
+  if (d < 0) { m--; d += new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate(); }
+  if (m < 0) { y--; m += 12; }
+  return { y, m, d };
+}
+
+function calcular(nacISO, hoy = new Date()) {
+  const birth = parseISO(nacISO), e = edad(birth, hoy);
+  const uc = ultimoCumple(birth, hoy), pc = proximoCumple(birth, hoy);
+  const diasVividos = daysBetween(birth, hoy), dsc = daysBetween(uc, hoy), diasAnio = daysBetween(uc, pc);
+  const idx = Math.min(Math.floor(e.y / 7), SEPTENIOS.length - 1), sept = SEPTENIOS[idx];
+  const abierto = idx === SEPTENIOS.length - 1;
+  const aniosEn = e.y - idx * 7;
+  const progreso = abierto ? null : Math.min(Math.max((aniosEn + dsc / diasAnio) / 7, 0), 1);
+  const nc = Math.min(Math.floor(dsc / 52) + 1, 7), ciclo = CICLOS[nc - 1];
+  const ini = addDays(uc, 52 * (nc - 1)), largo = nc === 7 ? diasAnio - 312 : 52;
+  const dia = Math.min(dsc - 52 * (nc - 1) + 1, largo);
+  return {
+    birth, hoy, e, uc, pc, diasVividos, dsc, diasAnio, idx, sept, aniosEn, progreso, abierto,
+    nc, ciclo, dia, largo, ini, fin: addDays(ini, largo - 1),
+    est: ESTRUCTURAS[sept.est], ciclosVividos: Math.floor(diasVividos / 52) + 1,
+    progresoAnio: Math.min(dsc / 364, 1), proximo: daysBetween(hoy, pc),
+    tramoFinal: e.y >= 69, anios60: e.y - 60
+  };
+}
+function ciclosDelAnio(c) {
+  return CICLOS.map((x, i) => { const ini = addDays(c.uc, 52 * i), largo = i === 6 ? c.diasAnio - 312 : 52; return { ...x, ini, fin: addDays(ini, largo - 1), largo }; });
+}
+function hitos(c) {
+  const b = c.birth, hoy = c.hoy, out = [];
+  const add = (nombre, fecha, nota) => { const d = daysBetween(hoy, fecha); if (d >= 0 && d < 365 * 40) out.push({ nombre, fecha, dias: d, nota }); };
+  const proxSept = Math.floor(c.e.y / 7) * 7 + 7;
+  add('Nuevo septenio (' + proxSept + ' años)', addYears(b, proxSept), 'Cambio de etapa; coincide con las cuadraturas de Saturno, cada 7 años.');
+  const j = Math.floor(c.e.y / 12) * 12 + 12;
+  add('Ciclo de Júpiter (' + j + ' años)', addYears(b, j), 'Ciclo de 12 años asociado a expansión y oportunidades.');
+  [29, 58, 87].forEach(n => add('Retorno de Saturno (' + n + ')', addYears(b, n), 'Reestructuración y asunción de responsabilidades.'));
+  add('Oposición de Urano (42)', addYears(b, 42), 'Replanteo de autenticidad y cambios liberadores.');
+  add('Retorno de Urano (84)', addYears(b, 84), 'La vuelta completa: la creatividad de la vida como hecho consumado.');
+  [[56, 'Inicio de la Tercera Estructura: el desenlace de la obra.'], [63, 'Segundo portal transpersonal: los frutos de la madurez creativa.'],
+   [69, 'Umbral del último tramo: se entra en el territorio del legado.'], [70, 'Mitad del tercer círculo: nuevo giro de conciencia.'],
+   [77, 'Cuarto portal: recapitulación, desapego y libertad.']].forEach(([n, nota]) => add('Etapa de los ' + n, addYears(b, n), nota));
+  [18.5, 37, 55.5, 74].forEach(n => add('Nodo lunar (' + n + ')', addDays(b, Math.round(n * 365.25)), 'Punto de reorientación y decisiones de rumbo.'));
+  return out.sort((a, x) => a.fecha - x.fecha).slice(0, 5);
+}
+
+/* ------------------------ 7. ALMACENAMIENTO ------------------------ */
+const K = { perfil: 'sp7_perfil', user: 'sp7_user', notas: 'sp7_notas', plan: 'sp7_plan' };
+const MEM = {};
+let PERSIST = (() => { try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); return true; } catch (e) { return false; } })();
+const store = {
+  get(k) { try { const v = PERSIST ? localStorage.getItem(k) : null; return (v !== null && v !== undefined) ? v : (k in MEM ? MEM[k] : null); } catch (e) { PERSIST = false; return k in MEM ? MEM[k] : null; } },
+  set(k, v) { try { if (PERSIST) localStorage.setItem(k, v); else MEM[k] = v; } catch (e) { PERSIST = false; MEM[k] = v; } },
+  del(k) { try { if (PERSIST) localStorage.removeItem(k); } catch (e) { } delete MEM[k]; }
+};
+const ld = k => { try { return JSON.parse(store.get(k)) || null; } catch (e) { return null; } };
+const sv = (k, v) => store.set(k, JSON.stringify(v));
+const rm = k => store.del(k);
+
+async function hash(txt) {
+  const s = 'sp7::' + txt;
+  if (window.crypto && window.crypto.subtle) {
+    try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join(''); } catch (e) { }
+  }
+  let h1 = 0x811c9dc5, h2 = 0x1000193;
+  for (let i = 0; i < s.length; i++) { h1 = (h1 ^ s.charCodeAt(i)) * 16777619 >>> 0; h2 = (h2 + s.charCodeAt(i) * (i + 7)) >>> 0; }
+  return 'f' + h1.toString(16) + h2.toString(16);
+}
+const norm = s => String(s || '').trim().toLowerCase();
+
+/* ------------------------ 8. ESTADO ------------------------ */
+const DEMO = { nombre: 'Ana (ejemplo)', nacimiento: '1990-05-12' };
+let PERFIL = null, USER = null, C = null, DEMO_ON = false, FILTRO = 'Todos';
+
+function cargarEstado() {
+  USER = ld(K.user);
+  const p = ld(K.perfil);
+  if (p && p.nacimiento) { PERFIL = p; DEMO_ON = false; }
+  else { PERFIL = { ...DEMO }; DEMO_ON = true; }
+}
+function guardarPerfil(p) { PERFIL = p; sv(K.perfil, p); }
+function aplicarPerfil(p, guardar) {
+  PERFIL = p; DEMO_ON = false;
+  if (guardar) sv(K.perfil, p);
+  C = calcular(p.nacimiento);
+  const t = $('#tagLine'); if (t) t.textContent = p.nombre + ' · ' + C.sept.nombre + ' · ciclo ' + C.nc;
+  renderTodo();
+}
+
+/* ------------------------ 9. COMPONENTES ------------------------ */
+function ringSVG(prog, actual, glifos = true) {
+  const R = 70, CC = 2 * Math.PI * R, seg = CC / 7, gap = 7, cx = 100, cy = 100;
+  let s = '<svg viewBox="0 0 200 200" role="img" aria-label="Rueda de los siete ciclos de 52 días">';
+  s += `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="currentColor" stroke-width="13" opacity=".08"/>`;
+  for (let i = 0; i < 7; i++) {
+    const a = i * (360 / 7) - 90, on = (i + 1) === actual;
+    s += `<circle class="seg" cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${CICLOS[i].color}" stroke-width="${on ? 15 : 13}" stroke-linecap="round"
+      stroke-dasharray="${seg - gap} ${CC - seg + gap}" opacity="${on ? 1 : .35}" transform="rotate(${a} ${cx} ${cy})"/>`;
+    if (glifos) {
+      const mid = (i * (360 / 7) + 25.7 - 90) * Math.PI / 180;
+      s += `<text class="gl" x="${(cx + Math.cos(mid) * R).toFixed(1)}" y="${(cy + Math.sin(mid) * R).toFixed(1)}" opacity="${on ? 1 : .8}">${CICLOS[i].glifo}</text>`;
+    }
+  }
+  const ang = (Math.min(prog, 1) * 360 - 90) * Math.PI / 180;
+  s += `<circle cx="${(cx + Math.cos(ang) * R).toFixed(1)}" cy="${(cy + Math.sin(ang) * R).toFixed(1)}" r="6.5" fill="#fff" stroke="var(--bg)" stroke-width="2"/>`;
+  s += `<text class="ctr" x="${cx}" y="${cy - 8}">${CICLOS[actual - 1].glifo} ${CICLOS[actual - 1].regente}</text>`;
+  s += `<text class="ctr2" x="${cx}" y="${cy + 6}">día ${Math.round(Math.min(prog, 1) * 364)} de 364</text>`;
+  s += `<text class="ctr2" x="${cx}" y="${cy + 20}" opacity=".8">${Math.round(Math.min(prog, 1) * 100)}% del año personal</text>`;
+  return s + '</svg>';
+}
+const pillares = s => `
+  <div class="pillar"><div class="ico">◈</div><div><h4>Identidad</h4><p>${esc(s.identidad)}</p></div></div>
+  <div class="pillar"><div class="ico">◍</div><div><h4>Vínculo social</h4><p>${esc(s.social)}</p></div></div>
+  <div class="pillar"><div class="ico">❋</div><div><h4>Mundo emocional</h4><p>${esc(s.emocional)}</p></div></div>`;
+const lista = (arr, cls = '') => `<ul class="clean ${cls}">${arr.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
+
+/* ------------------------ 10. VISTA INFORME ------------------------ */
+function renderInforme() {
+  const s = C.sept, es = C.est, hs = hitos(C);
+  const proxTxt = C.proximo === 0 ? '¡Hoy es tu cumpleaños!' : C.proximo + ' días para tu cumpleaños';
+  const etiq = C.idx === SEPTENIOS.length - 1 ? 'Más allá de los 84' : 'Septenio ' + (C.idx + 1);
+  $('#view-informe').innerHTML = `
+  <section class="card ${DEMO_ON ? '' : 'hidden'}" id="cardFecha" style="border-color:color-mix(in srgb,var(--gold) 45%,transparent)">
+    <p class="kicker">${DEMO_ON ? 'Tu informe en 10 segundos' : 'Cambiar datos'}</p>
+    <h2 class="sec" style="margin-top:6px">${DEMO_ON ? 'Pon tu fecha de nacimiento' : 'Actualiza tu nombre o tu fecha'}</h2>
+    <p class="muted">${DEMO_ON ? 'Lo que ves más abajo es un <b>ejemplo</b> (' + esc(DEMO.nombre) + ', ' + fmt(parseISO(DEMO.nacimiento)) + '). Escribe tus datos y todo el informe se recalcula al instante.' : 'Cambia tu nombre o tu fecha de nacimiento y todo se recalcula.'}</p>
+    <div style="margin-top:12px" class="field"><span>Tu nombre</span><input type="text" id="onbNombre" value="${esc(PERFIL.nombre === DEMO.nombre ? '' : PERFIL.nombre)}" placeholder="Cómo quieres que te llame"></div>
+    <div style="margin-top:10px" class="field"><span>Tu fecha de nacimiento</span><input type="date" id="onbNac" value="${esc(PERFIL.nacimiento)}"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn primary" id="onbGo" style="width:auto;padding:11px 20px">${DEMO_ON ? 'Ver mi informe' : 'Actualizar'}</button>
+      <button class="btn ghost" id="onbCancel" style="width:auto">${DEMO_ON ? 'Seguir viendo el ejemplo' : 'Cancelar'}</button>
+    </div>
+    <p class="msg" id="onbMsg"></p>
+  </section>
+
+  <section class="card hero">
+    <p class="kicker">Tu momento actual</p>
+    <p class="age-big">${C.e.y} años${C.e.m ? ' · ' + C.e.m + (C.e.m === 1 ? ' mes' : ' meses') : ''}${C.e.d ? ' · ' + C.e.d + (C.e.d === 1 ? ' día' : ' días') : ''}</p>
+    <div class="row" style="margin-top:10px">
+      <span class="chip gold">${etiq} · ${esc(s.nombre)}</span>
+      <span class="chip violet">${C.ciclo.glifo} Ciclo ${C.nc} de ${C.ciclo.regente}</span>
+      ${C.tramoFinal ? '<span class="chip mint">Último tramo</span>' : ''}
+      ${DEMO_ON ? '<span class="chip">Ejemplo</span>' : ''}
+    </div>
+    <div class="stats">
+      <div class="stat"><b>${C.diasVividos.toLocaleString('es')}</b><span>días vividos</span></div>
+      <div class="stat"><b>${C.ciclosVividos.toLocaleString('es')}</b><span>ciclos de 52 días</span></div>
+      <div class="stat"><b>${C.proximo === 0 ? 'hoy' : C.proximo}</b><span>${C.proximo === 0 ? 'cumpleaños' : 'días al cumpleaños'}</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <p class="kicker">1 · Introducción</p>
+    <h2 class="sec" style="margin-top:6px">Hola, ${esc(PERFIL.nombre)}</h2>
+    <p class="muted" style="margin-top:8px">
+      Naciste el <b>${fmt(C.birth)}</b>. Hoy transitas el <b>${etiq.toLowerCase()}</b> (${esc(s.rango)} años), regido por
+      <b>${esc(s.regente)}</b>, dentro de la <b>${esc(es.nombre)}</b> (${esc(es.rango)} años): ${esc(es.nota)}
+      ${C.abierto ? '' : 'Vas ' + C.aniosEn + (C.aniosEn === 1 ? ' año' : ' años') + ' dentro de este bloque de siete años.'}
+      Este informe es un espejo para reflexionar, no un pronóstico: tu historia concreta siempre matiza el mapa.
+    </p>
+    <div class="bar"><i style="width:${C.progreso === null ? 100 : (C.progreso * 100).toFixed(1)}%"></i></div>
+    <div class="bar-labels"><span>Inicio del septenio</span><span>${C.progreso === null ? C.aniosEn + ' años en esta etapa abierta' : (C.progreso * 100).toFixed(0) + '% · faltan ' + (7 - C.aniosEn - C.dsc / C.diasAnio).toFixed(1) + ' años'}</span></div>
+    <div class="fases">
+      ${ESTRUCTURAS.map((x, i) => `<div class="fase ${i === s.est ? 'on' : ''}"><b>${esc(x.nombre)}</b><span>${esc(x.rango)}</span></div>`).join('')}
+    </div>
+    <p class="muted" style="margin-top:10px"><b>${esc(es.ciclo)}</b> · ${esc(s.glifo)} regente del septenio: ${esc(s.regente)}.</p>
+  </section>
+
+  <section class="card">
+    <p class="kicker">2 · Panorama de tu etapa</p>
+    <h2 class="sec" style="margin-top:6px">${esc(s.nombre)} <span class="muted" style="font-weight:400">(${esc(s.rango)} años)</span></h2>
+    <p class="muted"><b>${esc(s.subtitulo)}</b></p>
+    <p class="muted" style="margin-top:6px">${esc(s.esencia)}</p>
+    <div style="margin-top:12px">${pillares(s)}</div>
+    <h3 class="mini" style="margin-top:14px">Características de este periodo</h3>
+    ${lista(s.caract)}
+  </section>
+
+  <section class="card">
+    <p class="kicker">3 · Desarrollo personal</p>
+    <h2 class="sec" style="margin-top:6px">Claves de la etapa</h2>
+    <p class="muted">Lecturas prácticas para observar lo que te pasa. Úsalas como lista de chequeo, no como diagnóstico.</p>
+    ${lista(s.claves)}
+    <h2 class="sec" style="margin-top:16px">Desafíos frecuentes</h2>
+    ${lista(s.retos)}
+    <h2 class="sec" style="margin-top:16px">Prácticas recomendadas</h2>
+    ${lista(s.practicas, 'mint')}
+    <blockquote class="quote">${esc(s.afirmacion)}</blockquote>
+    <h3 class="mini" style="margin-top:14px">Hitos de esta etapa</h3>
+    ${lista(s.hitos)}
+  </section>
+
+  <section class="card">
+    <p class="kicker">4 · Ciclos de 52 días</p>
+    <h2 class="sec" style="margin-top:6px">Estás en el ciclo ${C.nc}: ${esc(C.ciclo.regente)} (${esc(C.ciclo.alt)})</h2>
+    <div class="ring-box">
+      <div class="ring">${ringSVG(C.progresoAnio, C.nc)}</div>
+      <div class="ring-side">
+        <p class="muted"><b>Día ${C.dia}</b> de ${C.largo} · ${fmtC(C.ini)} → ${fmtC(C.fin)}</p>
+        <div class="bar"><i style="width:${((C.dia / C.largo) * 100).toFixed(1)}%"></i></div>
+        <div class="bar-labels"><span>${esc(C.ciclo.palabra)}</span><span>faltan ${C.largo - C.dia} días</span></div>
+        <p class="muted" style="margin-top:8px">${esc(C.ciclo.influencia)}</p>
+      </div>
+    </div>
+    <h3 class="mini" style="margin-top:14px">Cómo se cruza con tu septenio</h3>
+    <p class="muted">${esc(s.lens[C.nc - 1])}</p>
+    <h3 class="mini" style="margin-top:12px">Aprovechar el ciclo de ${esc(C.ciclo.regente)}</h3>
+    ${lista(C.ciclo.recom, 'violet')}
+    <p class="muted" style="margin-top:10px"><b>Qué evitar:</b> ${esc(C.ciclo.evitar)}</p>
+    <blockquote class="quote">Pregunta de la semana: ${esc(C.ciclo.pregunta)}</blockquote>
+  </section>
+
+  ${C.e.y >= 56 ? `
+  <section class="card" style="border-color:color-mix(in srgb,var(--mint) 45%,transparent)">
+    <p class="kicker">5 · Creatividad y mente en esta etapa</p>
+    <h2 class="sec" style="margin-top:6px">${C.e.y >= 69 ? 'Estás en el último tramo, y la evidencia acompaña' : 'La segunda mitad también es tiempo de fertilidad'}</h2>
+    <p class="muted">Con un cerebro sano la creatividad no se apaga: cambia de forma. Baja la velocidad, suben la síntesis, el criterio,
+      la regulación emocional y la capacidad de dar forma a lo vivido.${C.e.y >= 69 ? ' A los 69 se abrió el último tramo: lo que sigue es desenlace, legado y transmisión.' : ''}</p>
+    <div class="row" style="margin-top:10px">
+      <button class="btn primary" id="btnVerMente" style="width:auto;padding:11px 18px">Ver evidencia y ejemplos históricos</button>
+    </div>
+  </section>` : ''}
+
+  <section class="card">
+    <p class="kicker">${C.e.y >= 56 ? '6' : '5'} · Próximos hitos del camino</p>
+    <h2 class="sec" style="margin-top:6px">Lo que viene en tu mapa</h2>
+    <p class="muted">Referencias simbólicas de la tradición astrológica y de los septenios. Son invitaciones a observar, no predicciones.</p>
+    ${hs.map(h => `<div class="pillar"><div class="ico">✦</div><div><h4>${esc(h.nombre)} <span class="muted" style="font-weight:400">· en ${h.dias} días</span></h4>
+      <p>${fmt(h.fecha)} — ${esc(h.nota)}</p></div></div>`).join('')}
+    <p class="muted" style="margin-top:10px">${esc(proxTxt)}. Tu año personal va de ${fmtC(C.uc)} a ${fmtC(C.pc)}.</p>
+  </section>
+
+  <section class="card plano no-print">
+    <div class="row">
+      <button class="btn tiny" id="btnPrint">Guardar mi informe (PDF)</button>
+      <button class="btn tiny" id="btnCambiarFecha">Cambiar fecha</button>
+      <button class="btn tiny" id="btnVerSept">Ver los ${SEPTENIOS.length} septenios</button>
+    </div>
+  </section>
+
+  <section class="card disclaimer">
+    <b>Privacidad y límites.</b> ${PERSIST ? 'Tus datos quedan sólo en este dispositivo (almacenamiento local)' : 'Este visor no permite guardar datos, así que nada sale de tu pantalla'}.
+    La clave, si creas cuenta, se guarda cifrada. Esta app ofrece orientación general y simbólica: <b>no hace predicciones</b>,
+    no evalúa tu salud mental ni sustituye la ayuda de un profesional. Cada etapa se vive de formas distintas:
+    quédate con lo que resuena contigo y descarta lo demás.
+  </section>`;
+
+  $('#onbGo').onclick = safe(() => {
+    const nac = $('#onbNac').value, nombre = $('#onbNombre').value.trim() || 'Tú';
+    const m = $('#onbMsg');
+    if (!nac) { m.textContent = 'Indica tu fecha de nacimiento.'; return; }
+    if (parseISO(nac) > new Date()) { m.textContent = 'La fecha no puede ser futura.'; return; }
+    aplicarPerfil({ nombre, nacimiento: nac }, true);
+    toast('Informe actualizado con tu fecha.');
+  }, 'Fecha');
+  $('#onbCancel').onclick = safe(() => { if (DEMO_ON) toast('Estás viendo el ejemplo: cambia la fecha cuando quieras.'); else { $('#cardFecha').classList.add('hidden'); } }, 'Fecha');
+  $('#btnPrint').onclick = () => window.print();
+  $('#btnCambiarFecha').onclick = safe(() => abrirFecha(), 'Fecha');
+  $('#btnVerSept').onclick = () => go('septenios');
+  const bm = $('#btnVerMente'); if (bm) bm.onclick = () => go('mente');
+}
+
+function abrirFecha() {
+  go('informe');
+  setTimeout(() => {
+    const card = $('#cardFecha');
+    if (!card) return;
+    card.classList.remove('hidden');
+    const i = $('#onbNac'); if (i) { i.value = PERFIL.nacimiento; i.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  }, 120);
+}
+
+/* ------------------------ 11. SEPTENIOS ------------------------ */
+function renderSeptenios() {
+  const rail = SEPTENIOS.map((s, i) => `<button class="rail-item ${i === C.idx ? 'on' : ''}" data-sept="${i}">
+      <span class="dot">${s.glifo}</span><b>${esc(s.rango)}</b><span>${esc(s.nombre)}</span></button>`).join('');
+  const acc = SEPTENIOS.map((s, i) => {
+    const now = i === C.idx;
+    return `<div class="acc ${now ? 'now open' : ''}" id="acc-${i}">
+      <button class="acc-head" type="button" aria-expanded="${now}">
+        <span class="acc-num">${s.glifo}</span>
+        <span class="acc-title"><b>${esc(s.nombre)}</b><span>${esc(s.rango)} años · ${esc(s.regente)} · ${esc(s.subtitulo)}</span></span>
+        ${now ? '<span class="tag-now">aquí estás</span>' : ''}
+        <svg class="acc-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="acc-body">
+        <p class="muted"><b>${esc(ESTRUCTURAS[s.est].ciclo)} → ${esc(ESTRUCTURAS[s.est].nombre)} (${esc(ESTRUCTURAS[s.est].rango)} años)</b> — ${esc(ESTRUCTURAS[s.est].nota)}</p>
+        <p class="muted">${esc(s.esencia)}</p>
+        ${pillares(s)}
+        <h3 class="mini">Características más importantes del periodo</h3>${lista(s.caract)}
+        <h3 class="mini">Claves y destacados de la etapa</h3>${lista(s.claves)}
+        <h3 class="mini">Hitos de la etapa</h3>${lista(s.hitos)}
+        <h3 class="mini">Desafíos frecuentes</h3>${lista(s.retos)}
+        <h3 class="mini">Prácticas recomendadas</h3>${lista(s.practicas, 'mint')}
+        <h3 class="mini">Los 7 ciclos de 52 días en esta etapa</h3>
+        <ul class="clean violet">${CICLOS.map((x, k) => `<li><b>${x.glifo} ${x.n} · ${esc(x.regente)}:</b> ${esc(s.lens[k])}</li>`).join('')}</ul>
+        <blockquote class="quote">${esc(s.afirmacion)}</blockquote>
+        ${i === 9 ? `<div class="notice">En este septenio (63-70) se abre, a los <b>69 años</b>, el <b>umbral del último tramo</b>: el punto desde el cual el libro describe el desenlace, el legado y la transmisión. Si tu escuela cuenta el ciclo final desde los 69, este es tu territorio.</div>` : ''}
+        ${i === SEPTENIOS.length - 1 ? `<div class="notice">Más allá de los 84 se abre un tiempo que la tradición no describió: la longevidad actual lo volvió posible. Entrá en <b>Mente 60+</b> para ver qué dice la evidencia sobre la creatividad en estas edades.</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  $('#view-septenios').innerHTML = `
+    <section class="card">
+      <p class="kicker">Teoría de los septenios</p>
+      <h2 class="sec" style="margin-top:6px">Tu vida en bloques de siete años</h2>
+      <p class="muted">Difundida por Rudolf Steiner (1907) desde la antroposofía y desarrollada por Beatriz Leveratto en
+      <i>Cada siete años</i>, esta mirada propone que cada siete años cambia la tarea de la conciencia. Los primeros ocho septenios
+      están regidos por planetas visibles (Luna, Mercurio, Venus, Sol, Marte, Júpiter, Saturno y Quirón); desde los 56 entran los
+      <b>portales transpersonales</b> (Urano, Neptuno y Plutón). Se usa como <b>instrumento para observar</b>, no como regla exacta.</p>
+      <div class="rail" style="margin-top:12px">${rail}</div>
+      <div style="margin-top:12px">
+        ${ESTRUCTURAS.map((x, i) => `<div class="pillar" style="${i === C.sept.est ? 'border-color:color-mix(in srgb,var(--gold) 55%,transparent)' : ''}">
+          <div class="ico">${['①', '②', '③', '④', '⑤'][i]}</div>
+          <div><h4>${esc(x.nombre)} · ${esc(x.rango)} años</h4><p>${esc(x.nota)}</p></div></div>`).join('')}
+      </div>
+    </section>
+    ${acc}`;
+
+  $$('#view-septenios .acc-head').forEach(b => b.onclick = () => b.parentElement.classList.toggle('open'));
+  $$('#view-septenios .rail-item').forEach(b => b.onclick = safe(() => {
+    const el = $('#acc-' + b.dataset.sept);
+    if (el) { el.classList.add('open'); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  }, 'Septenio'));
+}
+
+/* ------------------------ 12. CICLOS ------------------------ */
+function renderCiclos() {
+  const plan = (ld(K.plan) || []).filter(t => t.ciclo === C.nc);
+  const items = ciclosDelAnio(C).map(x => {
+    const now = x.n === C.nc;
+    return `<div class="acc ${now ? 'now open' : ''}">
+      <button class="acc-head" type="button" aria-expanded="${now}">
+        <span class="acc-num">${x.glifo}</span>
+        <span class="acc-title"><b>${esc(x.regente)} · ${esc(x.alt)}</b><span>${fmtC(x.ini)} → ${fmtC(x.fin)} · ${x.largo} días</span></span>
+        ${now ? '<span class="tag-now">en curso</span>' : ''}
+        <svg class="acc-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="acc-body">
+        <p class="muted"><b>${esc(x.palabra)}</b> · ${esc(x.influencia)}</p>
+        <h3 class="mini">Recomendado en este ciclo</h3>${lista(x.recom, 'violet')}
+        <p class="muted"><b>Qué evitar:</b> ${esc(x.evitar)}</p>
+        <p class="muted"><b>Cruce con tu septenio (${esc(C.sept.nombre)}):</b> ${esc(C.sept.lens[x.n - 1])}</p>
+        <blockquote class="quote">${esc(x.pregunta)}</blockquote>
+      </div>
+    </div>`;
+  }).join('');
+
+  $('#view-ciclos').innerHTML = `
+    <section class="card hero">
+      <p class="kicker">Año personal ${C.uc.getFullYear()} – ${C.pc.getFullYear()}</p>
+      <h2 class="sec" style="margin-top:6px">Siete ciclos de 52 días</h2>
+      <div class="ring-box" style="margin-top:10px">
+        <div class="ring">${ringSVG(C.progresoAnio, C.nc)}</div>
+        <div class="ring-side">
+          <p class="muted">La astrología védica divide el año personal en siete tramos de 52 días (7 × 52 = 364) que <b>empiezan el día de tu cumpleaños</b>.
+          Cada tramo tiene un regente planetario que describe su calidad de energía.</p>
+          <p class="muted" style="margin-top:8px">Vas <b>${C.dsc}</b> días de ${C.diasAnio} y llevas <b>${C.ciclosVividos.toLocaleString('es')}</b> ciclos completados desde que naciste.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <p class="kicker">Mi plan para el ciclo de ${esc(C.ciclo.regente)}</p>
+      <h2 class="sec" style="margin-top:6px">Acciones concretas</h2>
+      <p class="muted">Escribe hasta cinco acciones alineadas con la energía de este ciclo y márcalas cuando las completes.</p>
+      <div class="row" style="margin-top:10px">
+        <input id="planTxt" placeholder="Ej.: presentar el proyecto pendiente" style="flex:1;min-width:150px">
+        <button class="btn primary" id="planAdd" style="width:auto;padding:11px 16px">Agregar</button>
+      </div>
+      <div style="margin-top:10px">
+        ${plan.length ? plan.map(t => `<div class="task ${t.done ? 'done' : ''}">
+          <input type="checkbox" data-id="${t.id}" ${t.done ? 'checked' : ''}>
+          <span>${esc(t.txt)}</span><button data-del="${t.id}" aria-label="Eliminar">✕</button></div>`).join('')
+        : '<p class="muted">Todavía no hay acciones para este ciclo.</p>'}
+      </div>
+    </section>
+
+    ${items}`;
+
+  $('#planAdd').onclick = safe(() => {
+    const t = $('#planTxt').value.trim();
+    if (!t) return toast('Escribe una acción.', false);
+    const arr = ld(K.plan) || [];
+    arr.push({ id: 'p' + Date.now(), txt: t, done: false, ciclo: C.nc });
+    sv(K.plan, arr.slice(-60)); renderCiclos();
+  }, 'Plan');
+  $$('#view-ciclos .task input').forEach(cb => cb.onchange = safe(() => {
+    const arr = ld(K.plan) || []; const t = arr.find(x => x.id === cb.dataset.id); if (t) t.done = cb.checked;
+    sv(K.plan, arr); renderCiclos();
+  }, 'Plan'));
+  $$('#view-ciclos .task button').forEach(b => b.onclick = safe(() => {
+    sv(K.plan, (ld(K.plan) || []).filter(x => x.id !== b.dataset.del)); renderCiclos();
+  }, 'Plan'));
+  $$('#view-ciclos .acc-head').forEach(b => b.onclick = () => b.parentElement.classList.toggle('open'));
+}
+
+/* ------------------------ 13. DIARIO ------------------------ */
+function renderDiario() {
+  const notas = ld(K.notas) || [];
+  const conteo = AREAS.map(a => [a, notas.filter(n => n.area === a).length]);
+  const max = Math.max(1, ...conteo.map(c => c[1]));
+  $('#view-diario').innerHTML = `
+    <section class="card">
+      <p class="kicker">Diario de ciclos</p>
+      <h2 class="sec" style="margin-top:6px">Registra lo que observas</h2>
+      <p class="muted">Anotar lo que sientes en cada ciclo vuelve el mapa mucho más útil. Podés clasificar por área de vida.</p>
+      <div style="margin-top:12px" class="field"><span>Reflexión</span>
+        <textarea id="notaTxt" placeholder="Hoy noté que..."></textarea></div>
+      <div style="margin-top:10px" class="field"><span>Área de vida</span>
+        <select id="notaArea">${AREAS.map(a => `<option>${a}</option>`).join('')}</select></div>
+      <p class="muted" style="margin-top:8px">Semilla del ciclo de ${esc(C.ciclo.regente)}: ${esc(C.ciclo.pregunta)}</p>
+      <div class="row" style="margin-top:10px"><button class="btn primary" id="btnNota" style="width:auto;padding:11px 20px">Guardar</button></div>
+    </section>
+    <section class="card">
+      <p class="kicker">Tendencias por área (${notas.length} entradas)</p>
+      <div style="margin-top:10px">
+        ${conteo.map(([a, n]) => `<div class="area-bar"><span class="nm">${esc(a)}</span>
+          <span class="tk"><i style="width:${(n / max * 100).toFixed(0)}%"></i></span><span class="ct">${n}</span></div>`).join('')}
+      </div>
+    </section>
+    <section class="card">
+      <p class="kicker">Mis entradas</p>
+      <div style="margin-top:10px">
+      ${notas.length ? notas.slice().reverse().map(n => `<div class="note">
+        <p class="nd"><span>${fmt(new Date(n.ts))}</span><span>${esc(n.area)} · ${CICLOS[(n.ciclo || 1) - 1].glifo} ${esc(n.etapa)}</span></p>
+        <p>${esc(n.txt)}</p>
+        <button class="del" data-id="${n.id}">Eliminar</button></div>`).join('')
+      : '<p class="muted">Todavía no escribiste nada. Arranca con una frase corta.</p>'}
+      </div>
+    </section>`;
+
+  $('#btnNota').onclick = safe(() => {
+    const t = $('#notaTxt').value.trim();
+    if (!t) return toast('Escribe algo primero.', false);
+    const arr = ld(K.notas) || [];
+    arr.push({ id: 'n' + Date.now(), ts: new Date().toISOString(), txt: t, area: $('#notaArea').value, ciclo: C.nc, etapa: C.sept.nombre });
+    sv(K.notas, arr.slice(-300)); toast('Reflexión guardada.'); renderDiario();
+  }, 'Diario');
+  $$('#view-diario .del').forEach(b => b.onclick = safe(() => {
+    sv(K.notas, (ld(K.notas) || []).filter(n => n.id !== b.dataset.id)); renderDiario();
+  }, 'Diario'));
+}
+
+/* ------------------------ 14. MENTE 60+ ------------------------ */
+function renderMente60() {
+  const e = C.e.y;
+  const encabezado = e >= 60
+    ? `Tenés <b>${e} años</b>: ${C.anios60 >= 0 ? C.anios60 + ' años más allá de los 60' : ''}. Lo que sigue resume qué se sabe hoy sobre un cerebro sano en esta franja y quiénes hicieron su mejor obra aquí.`
+    : e >= 42
+      ? `Tenés <b>${e} años</b>. Faltan <b>${60 - e}</b> para los 60: esta sección te sirve como anticipo y como mapa para preparar el terreno.`
+      : `Tenés <b>${e} años</b>. Esta sección mira lejos a propósito: lo que se construye ahora es lo que sostiene la mente a los 60, 70 y 80.`;
+
+  const figuras = FIGURAS.filter(f => FILTRO === 'Todos' || f.c === FILTRO)
+    .sort((a, b) => b.e - a.e);
+
+  $('#view-mente').innerHTML = `
+    <section class="card hero">
+      <p class="kicker">Cerebro sano · segunda mitad</p>
+      <h2 class="sec" style="margin-top:6px">Mente y creatividad después de los 60</h2>
+      <p class="muted" style="margin-top:6px">${encabezado}</p>
+    </section>
+
+    <section class="card">
+      <p class="kicker">Qué dice la evidencia</p>
+      <h2 class="sec" style="margin-top:6px">No es épica: son datos</h2>
+      <p class="muted">La idea de que "después de los 60 todo declina" es incompleta. Algunas capacidades bajan y otras siguen subiendo durante décadas.</p>
+      <div style="margin-top:12px">
+        ${EVIDENCIA.map(x => `<div class="evid">
+          <h4>${esc(x.t)}</h4>
+          <p>${esc(x.d)}</p>
+          <p class="fz">${esc(x.f)}</p>
+        </div>`).join('')}
+      </div>
+      <div class="notice" style="margin-top:12px"><b>El matiz que importa:</b> nada de esto reemplaza el cuidado médico.
+        La fertilidad mental de estas edades depende de un cerebro sano: sueño, movimiento, control de presión arterial, audición,
+        vida social y tratamiento de la depresión. La edad no protege por sí sola.</div>
+    </section>
+
+    <section class="card">
+      <p class="kicker">Fertilidad tardía</p>
+      <h2 class="sec" style="margin-top:6px">${FIGURAS.length} personas que empezaron o se multiplicaron después de los 60</h2>
+      <p class="muted">La edad es la que tenían al inicio o durante la obra citada. Filtrá por campo para recorrer la lista.</p>
+      <div class="row" style="margin-top:12px">
+        <button class="chip ${FILTRO === 'Todos' ? 'gold' : ''}" data-filtro="Todos">Todos (${FIGURAS.length})</button>
+        ${CAMPOS.map(c => `<button class="chip ${FILTRO === c ? 'gold' : ''}" data-filtro="${esc(c)}">${esc(c)} (${FIGURAS.filter(f => f.c === c).length})</button>`).join('')}
+      </div>
+      <div style="margin-top:14px">
+        ${figuras.map(f => `<div class="fig">
+          <div class="fig-edad"><b>${f.e}</b><span>años</span></div>
+          <div class="fig-txt"><h4>${esc(f.n)}</h4><p class="cp">${esc(f.c)}</p><p>${esc(f.o)}</p></div>
+        </div>`).join('')}
+      </div>
+    </section>
+
+    <section class="card">
+      <p class="kicker">Cómo cultivarla</p>
+      <h2 class="sec" style="margin-top:6px">Siete prácticas con respaldo</h2>
+      ${lista(PRACTICAS60, 'mint')}
+      <blockquote class="quote">La pregunta no es "¿todavía sirvo para algo?", sino "¿qué quiero hacer con todo lo que ya sé?".</blockquote>
+    </section>
+
+    <section class="card">
+      <p class="kicker">Y en tu mapa</p>
+      <h2 class="sec" style="margin-top:6px">Cómo se lee esto en los septenios</h2>
+      <p class="muted">El libro describe los septenios de 56-63, 63-70, 70-77 y 77-84 como los portales donde la creatividad deja de
+      estar al servicio de la propia imagen y pasa a circular por la red humana: se vuelve enseñanza, obra, legado y compañía.
+      Los datos de la neurociencia y esta lista de vidas tardías apuntan en la misma dirección: la fertilidad no se apaga, cambia de destinatario.</p>
+      <p class="muted" style="margin-top:8px">Vas ${C.ciclosVividos.toLocaleString('es')} ciclos de 52 días recorridos y estás en el
+      <b>${esc(C.sept.nombre)}</b>: cada ciclo de este septenio es una oportunidad concreta de poner eso en práctica.</p>
+    </section>`;
+
+  $$('#view-mente [data-filtro]').forEach(b => b.onclick = safe(() => { FILTRO = b.dataset.filtro; renderMente60(); }, 'Filtro'));
+}
+
+/* ------------------------ 15. GLOSARIO ------------------------ */
+function renderGlosario() {
+  $('#view-glosario').innerHTML = `
+    <section class="card">
+      <p class="kicker">Para entender el mapa</p>
+      <h2 class="sec" style="margin-top:6px">Glosario esencial</h2>
+      <p class="muted">Términos que aparecen en el informe, explicados sin jerga.</p>
+    </section>
+    <section class="card">
+      ${GLOSARIO.map(([t, d], i) => `<div style="padding:11px 0;${i ? 'border-top:1px solid var(--line)' : ''}">
+        <h3 class="mini">${esc(t)}</h3><p class="muted">${esc(d)}</p></div>`).join('')}
+    </section>
+    <section class="card">
+      <p class="kicker">Cómo se conectan los dos sistemas</p>
+      <h2 class="sec" style="margin-top:6px">Septenios y ciclos de 52 días</h2>
+      <p class="muted">Los septenios describen <b>transformaciones de fondo</b> (identidad, vínculos, sentido) que maduran durante años.
+      Los ciclos de 52 días describen <b>fluctuaciones de energía</b> dentro de cada año: qué tipo de acción conviene ahora.
+      Por eso la misma etapa se vive distinto en el ciclo de Sol (arrancar) que en el de Saturno (cerrar).</p>
+      <div style="margin-top:12px">
+        ${CICLOS.map(x => `<div class="pillar" style="border-color:${x.color}33"><div class="ico" style="color:${x.color};font-size:1.15rem">${x.glifo}</div>
+          <div><h4>${esc(x.regente)} · ${esc(x.palabra)}</h4><p>${esc(x.influencia)}</p></div></div>`).join('')}
+      </div>
+    </section>
+    <section class="card">
+      <p class="kicker">Fuentes y descargo</p>
+      <h2 class="sec" style="margin-top:6px">De dónde viene esta información</h2>
+      ${lista(FUENTES, 'mint')}
+      <div class="disclaimer" style="margin-top:12px">Contenido simbólico, educativo y divulgativo. No es diagnóstico ni predicción, y no reemplaza la orientación de un profesional de la salud mental o médica.</div>
+    </section>`;
+}
+
+/* ------------------------ 16. PERFIL ------------------------ */
+function renderPerfil() {
+  const u = USER;
+  $('#view-perfil').innerHTML = `
+    <section class="card">
+      <p class="kicker">Mi perfil</p>
+      <h2 class="sec" style="margin-top:6px">${esc(PERFIL.nombre)}</h2>
+      <div style="margin-top:8px">
+        <div class="line-item"><span>Nacimiento</span><b>${fmt(C.birth)}</b></div>
+        <div class="line-item"><span>Edad</span><b>${C.e.y} años</b></div>
+        <div class="line-item"><span>Etapa</span><b>${esc(C.sept.nombre)} (${esc(C.sept.rango)})</b></div>
+        <div class="line-item"><span>Tramo</span><b>${esc(C.est.nombre)} · ${esc(C.est.rango)}</b></div>
+        <div class="line-item"><span>Ciclo de 52 días</span><b>${C.ciclo.glifo} ${C.nc} · ${esc(C.ciclo.regente)}</b></div>
+        <div class="line-item"><span>Ciclos vividos</span><b>${C.ciclosVividos.toLocaleString('es')}</b></div>
+      </div>
+      <div style="margin-top:12px" class="field"><span>Tu nombre</span><input type="text" id="perNom" value="${esc(PERFIL.nombre)}"></div>
+      <div style="margin-top:10px" class="field"><span>Fecha de nacimiento</span><input type="date" id="perNac" value="${esc(PERFIL.nacimiento)}"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn primary" id="btnEditPerfil" style="width:auto;padding:11px 18px">Guardar cambios</button>
+        <button class="btn ghost" id="btnReset" style="width:auto">Volver al ejemplo</button>
+      </div>
+      <p class="msg" id="perMsg"></p>
+    </section>
+
+    ${u ? `
+    <section class="card">
+      <p class="kicker">Mi cuenta</p>
+      <h2 class="sec" style="margin-top:6px">${esc(u.nombre)}</h2>
+      <div style="margin-top:8px">
+        <div class="line-item"><span>Correo</span><b>${esc(u.email)}</b></div>
+        <div class="line-item"><span>Alta</span><b>${fmt(new Date(u.creado))}</b></div>
+        <div class="line-item"><span>Pregunta secreta</span><b style="max-width:60%">${esc(u.pregunta)}</b></div>
+      </div>
+      <h3 class="mini" style="margin-top:14px">Cambiar clave secreta</h3>
+      <div class="field"><span>Clave actual</span><input type="password" id="claveActual"></div>
+      <div class="field" style="margin-top:10px"><span>Nueva clave</span>
+        <div class="pwd-wrap"><input type="password" id="claveNueva"><button type="button" class="eye" data-target="claveNueva">◉</button></div></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn tiny" id="btnGenClave">Generar clave nueva sugerida</button>
+        <button class="btn primary" id="btnClave" style="width:auto;padding:11px 16px">Actualizar</button>
+      </div>
+      <p class="msg" id="claveMsg"></p>
+      <div class="row" style="margin-top:12px">
+        <button class="btn ghost" id="btnSalir" style="width:auto;color:var(--gold)">Cerrar sesión</button>
+        <button class="btn danger" id="btnBorrar" style="width:auto">Eliminar mi cuenta</button>
+      </div>
+    </section>` : `
+    <section class="card">
+      <p class="kicker">Crear cuenta</p>
+      <h2 class="sec" style="margin-top:6px">Guarda tu perfil con clave secreta</h2>
+      <p class="muted">Opcional: te permite entrar con tu correo y recuperar la clave si la olvidas. Todo se guarda en este dispositivo.</p>
+      <div style="margin-top:12px" class="field"><span>Correo electrónico</span><input type="email" id="regEmail" placeholder="tu@correo.com"></div>
+      <div style="margin-top:10px" class="field"><span>Clave secreta</span>
+        <div class="pwd-wrap"><input type="password" id="regPass" placeholder="Mínimo 6 caracteres"><button type="button" class="eye" data-target="regPass">◉</button></div></div>
+      <div style="margin-top:10px" class="field"><span>Pregunta de seguridad</span>
+        <select id="regPreg">
+          <option>¿Nombre de tu primera mascota?</option>
+          <option>¿Ciudad donde naciste?</option>
+          <option>¿Nombre de tu maestra o maestro favorito?</option>
+          <option>¿Tu mejor amigo de la infancia?</option>
+        </select></div>
+      <div style="margin-top:10px" class="field"><span>Respuesta secreta</span><input type="text" id="regResp" placeholder="Se guarda cifrada"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn tiny" id="btnGenClave2">Sugerir clave</button>
+        <button class="btn primary" id="btnCrear" style="width:auto;padding:11px 18px">Crear cuenta</button>
+      </div>
+      <p class="msg" id="regMsg"></p>
+      <div id="loginBox" class="hidden" style="margin-top:14px;border-top:1px solid var(--line);padding-top:14px">
+        <h3 class="mini">¿Ya tienes cuenta?</h3>
+        <div class="field"><span>Correo</span><input type="email" id="logEmail"></div>
+        <div class="field" style="margin-top:10px"><span>Clave</span><input type="password" id="logPass"></div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary" id="btnLogin" style="width:auto;padding:11px 16px">Entrar</button>
+          <button class="btn ghost" id="btnRec" style="width:auto">Olvidé mi clave</button>
+        </div>
+        <p class="msg" id="logMsg"></p>
+        <div id="recBox" class="hidden" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
+          <h3 class="mini">Recuperar clave</h3>
+          <p class="muted" id="recPreg"></p>
+          <div style="margin-top:10px" class="field"><span>Tu respuesta secreta</span><input type="text" id="recResp"></div>
+          <div style="margin-top:10px" class="field"><span>Nueva clave</span>
+            <div class="pwd-wrap"><input type="password" id="recNew"><button type="button" class="eye" data-target="recNew">◉</button></div></div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" id="btnRecGo" style="width:auto;padding:11px 16px">Guardar nueva clave</button>
+          </div>
+          <p class="msg" id="recMsg"></p>
+        </div>
+      </div>
+      <button class="btn ghost" id="btnShowLogin" style="width:auto;margin-top:10px">Ya tengo cuenta</button>
+    </section>`}
+
+    <section class="card">
+      <p class="kicker">Privacidad</p>
+      <p class="muted" style="margin-top:6px">${PERSIST
+        ? 'Tus datos y tu clave (cifrada) se guardan únicamente en este dispositivo. No hay servidor ni envío de información. Si borras los datos del navegador, la cuenta desaparece.'
+        : 'Este visor no permite guardar datos: podés usar todo el contenido, pero tu cuenta y tus notas no sobreviven al recargar. Abrí el archivo en el navegador para conservarlos.'}</p>
+    </section>`;
+
+  $('#btnEditPerfil').onclick = safe(() => {
+    const n = $('#perNom').value.trim() || PERFIL.nombre, f = $('#perNac').value, m = $('#perMsg');
+    m.className = 'msg';
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(f) || parseISO(f) > new Date()) { m.textContent = 'Fecha de nacimiento inválida.'; return; }
+    aplicarPerfil({ nombre: n, nacimiento: f }, true);
+    m.className = 'msg ok'; m.textContent = 'Datos guardados.';
+  }, 'Perfil');
+  const br = $('#btnReset');
+  if (br) br.onclick = safe(() => { rm(K.perfil); cargarEstado(); aplicarPerfil(PERFIL, false); toast('Volviste al ejemplo.'); }, 'Perfil');
+
+  if (u) {
+    $('#btnGenClave').onclick = safe(() => { const k = claveSugerida(); $('#claveNueva').value = k; $('#claveNueva').type = 'text'; toast('Clave sugerida: ' + k); }, 'Clave');
+    $('#btnClave').onclick = safe(async () => {
+      const m = $('#claveMsg'); m.className = 'msg';
+      if (await hash($('#claveActual').value + u.email) !== u.hash) return m.textContent = 'La clave actual no es correcta.';
+      const nv = $('#claveNueva').value;
+      if (nv.length < 6) return m.textContent = 'La nueva clave debe tener al menos 6 caracteres.';
+      const nu = { ...u, hash: await hash(nv + u.email) }; sv(K.user, nu); USER = nu;
+      m.className = 'msg ok'; m.textContent = 'Clave actualizada.'; renderPerfil();
+    }, 'Clave');
+    $('#btnSalir').onclick = safe(() => { sv(K.perfil, PERFIL); USER = null; rm(K.user); renderPerfil(); toast('Sesión cerrada; tu perfil sigue guardado.'); }, 'Sesión');
+    $('#btnBorrar').dataset.armado = '';
+    $('#btnBorrar').onclick = safe(() => {
+      const b = $('#btnBorrar');
+      if (b.dataset.armado !== '1') { b.dataset.armado = '1'; b.textContent = 'Confirmar eliminación'; toast('Tocá otra vez para confirmar.'); return; }
+      rm(K.user); rm(K.perfil); rm(K.notas); rm(K.plan); USER = null;
+      cargarEstado(); aplicarPerfil(PERFIL, false); toast('Cuenta eliminada.');
+    }, 'Cuenta');
+  } else {
+    const gen = $('#btnGenClave2');
+    if (gen) gen.onclick = safe(() => { const k = claveSugerida(); $('#regPass').value = k; $('#regPass').type = 'text'; toast('Clave sugerida: ' + k); }, 'Clave');
+    $('#btnCrear').onclick = safe(async () => {
+      const email = norm($('#regEmail').value), pass = $('#regPass').value, resp = $('#regResp').value.trim();
+      const m = $('#regMsg'); m.className = 'msg';
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return m.textContent = 'Revisa tu correo.';
+      if (pass.length < 6) return m.textContent = 'La clave debe tener al menos 6 caracteres.';
+      if (!resp) return m.textContent = 'Escribe la respuesta secreta.';
+      USER = { nombre: PERFIL.nombre, email, nacimiento: PERFIL.nacimiento, hash: await hash(pass + email), pregunta: $('#regPreg').value, respuesta: await hash(norm(resp) + email), creado: new Date().toISOString() };
+      sv(K.user, USER); sv(K.perfil, PERFIL);
+      m.className = 'msg ok'; m.textContent = 'Cuenta creada en este dispositivo.'; renderPerfil();
+    }, 'Cuenta');
+    const sl = $('#btnShowLogin');
+    if (sl) sl.onclick = safe(() => { $('#loginBox').classList.remove('hidden'); sl.classList.add('hidden'); }, 'Login');
+    const bl = $('#btnLogin');
+    if (bl) bl.onclick = safe(async () => {
+      const email = norm($('#logEmail').value), m = $('#logMsg'); m.className = 'msg';
+      const u2 = ld(K.user);
+      if (!u2 || u2.email !== email) return m.textContent = 'No hay cuenta con ese correo en este dispositivo.';
+      if (await hash($('#logPass').value + email) !== u2.hash) return m.textContent = 'La clave no coincide.';
+      USER = u2; PERFIL = { nombre: u2.nombre, nacimiento: u2.nacimiento }; C = calcular(PERFIL.nacimiento);
+      m.className = 'msg ok'; m.textContent = 'Sesión iniciada.'; renderPerfil(); renderTodo();
+    }, 'Login');
+    const br2 = $('#btnRec');
+    if (br2) br2.onclick = safe(() => {
+      const u2 = ld(K.user);
+      if (!u2) return toast('No hay cuenta guardada en este dispositivo.', false);
+      $('#recBox').classList.remove('hidden');
+      $('#recPreg').textContent = 'Pregunta de seguridad: ' + u2.pregunta;
+      $('#recResp').focus();
+    }, 'Recuperar');
+    const bg = $('#btnRecGo');
+    if (bg) bg.onclick = safe(async () => {
+      const u2 = ld(K.user), m = $('#recMsg'); m.className = 'msg';
+      if (!u2) return m.textContent = 'No hay cuenta guardada.';
+      if (await hash(norm($('#recResp').value) + u2.email) !== u2.respuesta) return m.textContent = 'La respuesta secreta no coincide.';
+      const np = $('#recNew').value;
+      if (np.length < 6) return m.textContent = 'La nueva clave debe tener al menos 6 caracteres.';
+      const nu = { ...u2, hash: await hash(np + u2.email) }; sv(K.user, nu); USER = nu;
+      m.className = 'msg ok'; m.textContent = 'Clave actualizada. Ya podés entrar con la nueva.';
+      $('#recBox').classList.add('hidden'); renderPerfil();
+    }, 'Recuperar');
+  }
+  $$('#view-perfil .eye').forEach(b => b.onclick = () => { const i = document.getElementById(b.dataset.target); if (i) i.type = i.type === 'password' ? 'text' : 'password'; });
+}
+function claveSugerida() {
+  const a = ['Luna', 'Rio', 'Aire', 'Faro', 'Nube', 'Bosque', 'Cielo', 'Marea'], b = ['Nueve', 'Siete', 'Dos', 'Doce', 'Cinco'], s = ['!', '#', '*', '+'];
+  return a[Math.random() * a.length | 0] + b[Math.random() * b.length | 0] + (Math.random() * 90 + 10 | 0) + s[Math.random() * s.length | 0];
+}
+
+/* ------------------------ 17. NAVEGACIÓN ------------------------ */
+const VISTAS = ['informe', 'septenios', 'ciclos', 'mente', 'diario', 'glosario', 'perfil'];
+function go(v, tocarHash = true) {
+  if (!VISTAS.includes(v)) v = 'informe';
+  $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  $$('.view').forEach(x => x.classList.remove('active'));
+  const el = $('#view-' + v); if (el) el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // guardamos la vista en la URL sin crear entradas de historial (no bloquea el botón "atrás")
+  try { if (tocarHash && location.hash !== '#' + v) history.replaceState(null, '', '#' + v); } catch (e) { }
+}
+function renderTodo() {
+  [['Informe', renderInforme], ['Septenios', renderSeptenios], ['Ciclos', renderCiclos],
+   ['Mente 60+', renderMente60], ['Diario', renderDiario], ['Glosario', renderGlosario], ['Perfil', renderPerfil]]
+    .forEach(([n, fn]) => { try { fn(); } catch (err) { console.error(n, err); toast('Error al mostrar ' + n + ': ' + err.message, false); } });
+}
+
+/* ------------------------ 18. ARRANQUE ------------------------ */
+function init() {
+  let dots = '';
+  for (let i = 0; i < 7; i++) { const a = (i * (360 / 7) - 90) * Math.PI / 180; dots += `<circle cx="${(50 + Math.cos(a) * 38).toFixed(1)}" cy="${(50 + Math.sin(a) * 38).toFixed(1)}" r="3.4" fill="currentColor" opacity=".8"/>`; }
+  $('#brandDots').innerHTML = dots;
+
+  const w = $('#warn');
+  if (!PERSIST && w) { w.innerHTML = '<b>Este visor no permite guardar datos.</b> Podés usar toda la app igual; para conservar cuenta y notas, abrí el archivo en el navegador.'; w.classList.remove('hidden'); }
+
+  cargarEstado();
+  C = calcular(PERFIL.nacimiento);
+  $('#tagLine').textContent = PERFIL.nombre + ' · ' + C.sept.nombre + ' · ciclo ' + C.nc;
+  const nacInput = $('#onbNac'); if (nacInput) nacInput.max = toISO(new Date());
+  renderTodo();
+
+  $('#btnTema').onclick = safe(() => {
+    const claro = document.documentElement.dataset.theme === 'claro';
+    document.documentElement.dataset.theme = claro ? 'oscuro' : 'claro';
+    sv('sp7_tema', claro ? 'oscuro' : 'claro');
+    $$('.view').forEach(x => x.classList.remove('active')); $('#view-informe').classList.add('active');
+    try { renderCiclos(); } catch (e) { }
+  }, 'Tema');
+  $('#btnFechaTop').onclick = safe(abrirFecha, 'Fecha');
+  $$('.nav-item').forEach(b => b.onclick = safe(() => go(b.dataset.view), 'Navegación'));
+
+  const t = ld('sp7_tema'); if (t) document.documentElement.dataset.theme = t;
+
+  // abrir directamente una vista por URL (#mente, #ciclos, ...) y reaccionar si cambia
+  const inicial = (location.hash || '').replace('#', '');
+  if (VISTAS.includes(inicial)) go(inicial, false);
+  window.addEventListener('hashchange', () => {
+    const h = (location.hash || '').replace('#', '');
+    if (VISTAS.includes(h)) go(h, false);
+  });
+}
+window.addEventListener('error', e => { if (e && e.message) toast('Error: ' + e.message, false); });
+window.addEventListener('unhandledrejection', e => toast('Error: ' + (e.reason && e.reason.message ? e.reason.message : 'inesperado'), false));
+const arrancar = () => { try { init(); } catch (err) { console.error(err); toast('No se pudo iniciar: ' + err.message, false); } };
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arrancar); else arrancar();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+# Septenios · configuración para Netlify
+# No hay paso de compilación: el sitio son archivos estáticos en la raíz del repo.
+
+[build]
+  publish = "."
+  command = ""
+
+# El service worker nunca debe quedar en cache del navegador: si no, las
+# actualizaciones no llegan nunca.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "application/manifest+json"
+
+# HTML siempre fresco; assets con versionado por nombre de archivo pueden cachear más.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Nota: a propósito NO se envían X-Frame-Options ni CSP con frame-ancestors,
+# para que la app pueda seguir viéndose embebida en visores y previsualizadores.
