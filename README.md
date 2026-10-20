@@ -78,15 +78,47 @@ En la próxima visita el navegador descarga la nueva versión y borra la caché 
 
 ## 6. Estructura
 
+Todo vive en **una sola carpeta** (la raíz del repo). Los archivos se agrupan en cuatro funciones:
+
 ```
-index.html              estructura + registro del service worker
-styles.css              tema cósmico, claro y oscuro
-app.js                  datos (septenios, ciclos, figuras, evidencia) + lógica + vistas
-manifest.webmanifest    nombre, iconos, atajos y modo de pantalla
-sw.js                   service worker: modo sin conexión
-icons/                  iconos 192, 512, maskable, Apple touch y favicon
-septenios-app.html      versión de archivo único (se genera desde los anteriores)
-netlify.toml            cabeceras y publicación
+/workspace
+│
+├─ LA APP (siempre van juntos, ninguno funciona solo)
+│   index.html              estructura de las 7 vistas + etiquetas PWA
+│   styles.css              tema cósmico, claro y oscuro
+│   app.js                  datos (septenios, ciclos, figuras, evidencia) + lógica
+│
+├─ PARA QUE SE INSTALE COMO APP NATIVA
+│   manifest.webmanifest    nombre, 17 iconos, 3 atajos, pantalla completa
+│   sw.js                   service worker: funciona sin conexión
+│   browserconfig.xml       mosaico de Windows / Edge
+│   favicon.svg             icono vectorial de la pestaña
+│   icons/                  36 archivos:
+│                             · 17 iconos (16→512 px) + 2 maskable
+│                             · 13 splash screens iOS
+│                             · 4 apple-touch-icon
+│
+├─ PARA PUBLICARLA
+│   netlify.toml            cabeceras y directorio de publicación
+│   .gitignore
+│   README.md
+│
+└─ EXTRA
+    septenios-app.html      copia autónoma de un solo archivo
+    build.js                regenera esa copia desde index.html + styles.css + app.js
+```
+
+### Dos puntos de entrada, dos propósitos
+
+| Archivo | Para qué | ¿Se instala? |
+|---|---|---|
+| `index.html` | **La app real.** Necesita `styles.css`, `app.js`, el manifiesto y `icons/`. Es la que publicás en Netlify. | ✅ Sí |
+| `septenios-app.html` | Copia con todo incrustado, para abrir con doble clic, mandar por mail o guardar offline. No depende de nada más. | ❌ No |
+
+Si editás `app.js` o `styles.css`, regenerá la copia de un solo archivo:
+
+```bash
+node build.js      # vuelve a escribir septenios-app.html
 ```
 
 ## 7. Aviso
