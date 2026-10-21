@@ -37,11 +37,11 @@ git init
 git add .
 git commit -m "Septenios: app PWA de ciclos de 7 años y 52 días"
 git branch -M main
-git remote add origin https://github.com/TU-USUARIO/septenios.git
+git remote add origin https://github.com/victoravilan/Septenio.git
 git push -u origin main
 ```
 
-Si preferís la herramienta oficial: `gh repo create septenios --public --source=. --push`.
+Si preferís la herramienta oficial: `gh repo create Septenio --public --source=. --push`.
 
 ## 4. Publicar en Netlify (recomendado)
 
@@ -52,7 +52,7 @@ Si preferís la herramienta oficial: `gh repo create septenios --public --source
 
 **Opción B — conectada a GitHub (la recomendada)**
 1. *Add new site* → *Import an existing project* → elegí GitHub y autorizá.
-2. Seleccioná el repo `septenios`.
+2. Seleccioná el repo `Septenio`.
 3. Dejá el comando de build vacío y *Publish directory* en `.` (ya lo define `netlify.toml`).
 4. *Deploy*. Cada `git push` a `main` vuelve a publicar solo.
 
